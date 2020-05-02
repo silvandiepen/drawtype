@@ -217,7 +217,8 @@ export const Characters: CharactersType[] = [
 		id: 'cur',
 		name: 'currency',
 		title: 'currency',
-		data: ['$', ' ¢', ' £', '¥', '€']
+		data: ['$', ' ¢', ' £', '¥', '€'],
+		active: true
 	},
 	{
 		id: 'cyr',
