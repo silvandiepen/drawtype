@@ -21,7 +21,7 @@ export default Vue.extend({
 		NavigationTrigger
 	},
 	data: () => ({
-		projectName: 'Hi!'
+		projectName: 'DrawType'
 	})
 });
 </script>
@@ -30,18 +30,17 @@ export default Vue.extend({
 @import '~tools';
 
 .header {
-	position: fixed;
+	position: relative;
 	top: 0;
 	left: 0;
 	z-index: 1;
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
+	background-color: black;
+	color: white;
 	text-align: center;
-	padding: grid(1 2);
-	@include min-(1, $mobile-padding) {
-		padding: 0 0 0 $mobile-padding;
-	}
+	padding: 1em;
 	&__logo {
 		z-index: 2;
 		font-size: 1.5rem;

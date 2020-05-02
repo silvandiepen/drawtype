@@ -1,53 +1,70 @@
 <template>
 	<main class="page-draw">
 		<div class="heading">
-			Glyphs
+			Draw
+			<div class="settings">
+				<BrushSettings />
+				<ViewSettings />
+			</div>
 		</div>
-		<ul class="glyphs__list">
-			<li v-for="(glyph, idx) in glyphs" :key="idx" class="glyphs__item">
-				<GlyphCanvas v-model="glyph.data" :glyph="glyph.char" />
-			</li>
-		</ul>
+		<div v-for="(glyphset, idg) in glyphsets" :key="idg" class="glyps__set">
+			<h3 class="glyphs__title">{{ glyphset.title }}</h3>
+			<ul class="glyphs__list">
+				<li
+					v-for="(glyph, idx) in glyphset.data"
+					:key="idx"
+					class="glyphs__item"
+				>
+					<GlyphCanvas :glyph="glyph" />
+				</li>
+			</ul>
+		</div>
 	</main>
 </template>
 <script>
-import GlyphCanvas from '@/components/glyphCanvas.vue';
+import { BrushSettings, ViewSettings } from '@/components';
+import GlyphCanvas from '@/components/GlyphCanvas/GlyphCanvas.vue';
+
 export default {
 	components: {
-		GlyphCanvas
+		GlyphCanvas,
+		BrushSettings,
+		ViewSettings
 	},
-	data: () => ({
-		glyphs: [
-			{ char: 'a', data: null },
-			{ char: 'b', data: null },
-			{ char: 'c', data: null },
-			{ char: 'd', data: null },
-			{ char: 'e', data: null },
-			{ char: 'f', data: null },
-			{ char: 'g', data: null },
-			{ char: 'h', data: null },
-			{ char: 'i', data: null },
-			{ char: 'j', data: null }
-		]
-	})
+	computed: {
+		glyphsets: {
+			get() {
+				return this.$store.getters['glyphs/getActiveCharacterSets'];
+			}
+		}
+	}
 };
 </script>
 <style lang="scss">
 .heading {
 	padding: 4vw;
+	display: flex;
+	justify-content: space-between;
+	.settings {
+		display: flex;
+	}
 }
 .glyphs {
+	&__title {
+		padding: 2em;
+	}
 	&__list {
 		display: flex;
 		flex-wrap: wrap;
-		border: 1px solid red;
+		justify-content: center;
 		background-color: rgba(255, 250, 245);
+		padding: 2em;
 	}
 	&__item {
-		width: 33.33%;
-		height: 33.33vw;
-		gap: 10em;
-		padding: 1em;
+		--size: 10em;
+		width: var(--size);
+		height: var(--size);
+		padding: calc(var(--size) / 20);
 		canvas {
 			border: 1px solid rgba(0, 0, 0, 0.25);
 			background-color: white;
