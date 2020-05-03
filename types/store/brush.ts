@@ -1,9 +1,9 @@
 export type BrushStateType = {
-	size: number;
+	size: string;
 	color: string;
 	opacity: string;
-	smooth: number;
-	pressure: number;
+	smooth: string;
+	pressure: string;
 };
 export interface SetBrushArgType {
 	value: string;

@@ -11,7 +11,7 @@
 <script>
 import Vue from 'vue';
 import { fabric } from 'fabric';
-import { PSStroke } from '@arch-inc/fabricjs-psbrush/dist';
+import { PSBrush, PSStroke } from '@arch-inc/fabricjs-psbrush/dist';
 // import { ICanvasOptions } from 'fabric/fabric-impl';
 // import { BrushStateType } from '@/store/brush/types';
 // interface GlyphCanvasDataType {
@@ -44,35 +44,54 @@ export default Vue.extend({
 	watch: {
 		brushSettings: {
 			handler() {
-				this.setBrush();
+				this.setBrushSettings();
 			},
 			deep: true,
 			immediate: true
 		}
 	},
 	mounted() {
-		setTimeout(() => {
-			this.initCanvas();
-		}, 500);
+		// setTimeout(() => {
+		this.initCanvas();
+		// }, 500);
 	},
 	methods: {
-		setBrush() {},
+		setBrushSettings() {
+			// console.log(this.brush);
+			if (
+				this.canvas &&
+				this.canvas.freeDrawingBrush &&
+				this.canvas.freeDrawingBrush.color
+			) {
+				this.canvas.freeDrawingBrush.color = this.brushSettings.color;
+				this.canvas.freeDrawingBrush.opacity =
+					parseInt(this.brushSettings.opacity) / 100;
+				this.canvas.freeDrawingBrush.width = this.brushSettings.size;
+				// this.canvas.freeDrawingBrush = this.brush;
+			}
+		},
 		initCanvas() {
-			// const element = this.$refs.glyphCanvasContainer;
 			const element = document.querySelector('#canvas-' + this.charCode);
 			const size = element.getBoundingClientRect();
-			// console.log(size);
+
 			this.canvas = new fabric.Canvas(element, {
 				isDrawingMode: true,
 				enablePointerEvents: true,
 				height: size.height,
 				width: size.height
 			});
-
+			this.setBrush();
+		},
+		setBrush() {
+			this.brush = new PSBrush(this.canvas, {});
+			this.brush.width = this.brushSettings.size;
+			this.brush.color = '#000000';
+			this.canvas.freeDrawingBrush = this.brush;
+		},
+		setStroke() {
 			this.brush = new PSStroke(this.canvas, {});
 			this.brush.width = this.brushSettings.size;
-			this.brush.color = '#000';
-
+			this.brush.color = '#000000';
 			this.canvas.freeDrawingBrush = this.brush;
 		}
 	}

@@ -2,36 +2,30 @@ import Vue from 'vue';
 import { BrushStateType, SetBrushArgType } from '@/types';
 
 export const state = (): BrushStateType => ({
-	size: 20,
+	size: '20',
 	color: 'black',
-	opacity: '1',
-	smooth: 1,
-	pressure: 1
+	opacity: '100',
+	smooth: '50',
+	pressure: '1'
 });
 
 export const mutations = {
-	SET_SIZE: (state: BrushStateType) => (value: number) => {
-		state.size = value;
-	},
-	SET_COLOR: (state: BrushStateType) => (value: string) => {
-		state.color = value;
-	},
-	SET_BRUSH: (state: BrushStateType) => (value: SetBrushArgType) => {
-		Vue.set(state, value.type, value.value);
+	SET_BRUSH: (state: BrushStateType, settings: SetBrushArgType) => {
+		Vue.set(state, settings.type, settings.value);
 	}
 };
 
 export const getters = {
-	getSize(state: BrushStateType): number {
+	getSize(state: BrushStateType): string {
 		return state.size;
 	},
 	getColor(state: BrushStateType): string {
 		return state.color;
 	},
-	getSmooth(state: BrushStateType): number {
+	getSmooth(state: BrushStateType): string {
 		return state.smooth;
 	},
-	getPressure(state: BrushStateType): number {
+	getPressure(state: BrushStateType): string {
 		return state.pressure;
 	},
 	getOpacity(state: BrushStateType): string {
@@ -42,8 +36,8 @@ export const getters = {
 	}
 };
 export const actions = {
-	setBrush({ commit }: any, value: SetBrushArgType): void {
-		commit('SET_BRUSH', value);
+	setBrush({ commit }: any, settings: SetBrushArgType): void {
+		commit('SET_BRUSH', settings);
 	},
 	setColor({ commit }: any, value: string) {
 		commit('SET_COLOR', value);

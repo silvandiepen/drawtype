@@ -5,14 +5,14 @@ export const Characters: CharactersType[] = [
 		id: '0-9',
 		name: 'numeral',
 		title: 'Numeral',
-		data: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+		characters: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
 		active: true
 	},
 	{
 		id: 'lat',
 		name: 'latinLowercase',
 		title: 'Latin Lowercase',
-		data: [
+		characters: [
 			'a',
 			'b',
 			'c',
@@ -46,7 +46,7 @@ export const Characters: CharactersType[] = [
 		id: 'LAT',
 		name: 'latinUppercase',
 		title: 'Latin Uppercase',
-		data: [
+		characters: [
 			'A',
 			'B',
 			'C',
@@ -80,7 +80,7 @@ export const Characters: CharactersType[] = [
 		id: 'sc',
 		name: 'basicSpecialCharacters',
 		title: 'Basic Special characters',
-		data: [
+		characters: [
 			'.',
 			',',
 			':',
@@ -136,7 +136,7 @@ export const Characters: CharactersType[] = [
 		id: 'lat-acc',
 		name: 'basicAccents',
 		title: 'Basic Accents',
-		data: [
+		characters: [
 			'á',
 			'â',
 			'à',
@@ -209,14 +209,14 @@ export const Characters: CharactersType[] = [
 		id: 'cur',
 		name: 'currency',
 		title: 'currency',
-		data: ['$', ' ¢', ' £', '¥', '€'],
+		characters: ['$', ' ¢', ' £', '¥', '€'],
 		active: true
 	},
 	{
 		id: 'cyr',
 		name: 'cyrillicLowercase',
 		title: 'Cyrillic Lowercase',
-		data: [
+		characters: [
 			'а',
 			'б',
 			'в',
@@ -256,7 +256,7 @@ export const Characters: CharactersType[] = [
 		id: 'CYR',
 		name: 'cyrillicUppercase',
 		title: 'Cyrillic Uppercase',
-		data: [
+		characters: [
 			'А',
 			'Б',
 			'В',
@@ -296,7 +296,7 @@ export const Characters: CharactersType[] = [
 		id: 'arm',
 		name: 'armenianLowercase',
 		title: 'Armenian Lowercase',
-		data: [
+		characters: [
 			'ա',
 			'բ',
 			'գ',
@@ -343,7 +343,7 @@ export const Characters: CharactersType[] = [
 		id: 'ARM',
 		name: 'armenianUppercase',
 		title: 'Armenian Uppercase',
-		data: [
+		characters: [
 			'Ա',
 			'Բ',
 			'Գ',
@@ -392,7 +392,7 @@ export const Characters: CharactersType[] = [
 		id: 'gre',
 		title: 'Greek Lowercase',
 		name: 'greekLowercase',
-		data: [
+		characters: [
 			'α',
 			'β',
 			'γ',
@@ -424,7 +424,7 @@ export const Characters: CharactersType[] = [
 		id: 'GRE',
 		title: 'Greek Uppercase',
 		name: 'greekUppercase',
-		data: [
+		characters: [
 			'Α',
 			'Β',
 			'Γ',
@@ -455,7 +455,7 @@ export const Characters: CharactersType[] = [
 		id: 'ARA',
 		title: 'Arabic Abjadi',
 		name: 'arabicAbjadi',
-		data: [
+		characters: [
 			'غ',
 			'ظ',
 			'ض',
@@ -490,7 +490,7 @@ export const Characters: CharactersType[] = [
 		id: 'ARH',
 		title: 'Arabic Hija',
 		name: 'arabicHija',
-		data: [
+		characters: [
 			'ي',
 			'و',
 			'ه',
@@ -525,7 +525,7 @@ export const Characters: CharactersType[] = [
 		id: 'geo',
 		title: 'Georgian',
 		name: 'georgian',
-		data: [
+		characters: [
 			'ა',
 			'ბ',
 			'გ',

@@ -2,7 +2,7 @@
 	<main class="page-draw">
 		<div class="heading">
 			Draw
-			<div class="settings">
+			<div class="heading__settings">
 				<BrushSettings />
 				<ViewSettings />
 			</div>
@@ -15,7 +15,7 @@
 					:key="idx"
 					class="glyphs__item"
 				>
-					<GlyphCanvas :glyph="glyph" />
+					<GlyphCanvas v-model="glyph.data" :glyph="glyph.glyph" />
 				</li>
 			</ul>
 		</div>
@@ -37,16 +37,24 @@ export default {
 				return this.$store.getters['glyphs/getActiveCharacterSets'];
 			}
 		}
+	},
+	created() {
+		this.$store.dispatch('glyphs/setCharacterSets');
 	}
 };
 </script>
 <style lang="scss">
 .heading {
-	padding: 4vw;
+	position: sticky;
+	top: 0;
+	z-index: 5;
 	display: flex;
 	justify-content: space-between;
-	.settings {
+	padding: 1em;
+	&__settings {
+		padding: 1em;
 		display: flex;
+		background-color: rgba(0, 0, 0, 0.25);
 	}
 }
 .glyphs {
@@ -59,6 +67,7 @@ export default {
 		justify-content: center;
 		background-color: rgba(255, 250, 245);
 		padding: 2em;
+		overflow: hidden;
 	}
 	&__item {
 		--size: 10em;

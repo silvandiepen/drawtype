@@ -7,8 +7,8 @@ export const state = (): ViewStateType => ({
 });
 
 export const mutations = {
-	SET_VIEW: (state: ViewStateType) => (value: SetViewArgType) => {
-		Vue.set(state, value.type, value.value);
+	SET_VIEW: (state: ViewStateType, settings: SetViewArgType) => {
+		Vue.set(state, settings.type, settings.value);
 	}
 };
 
@@ -18,7 +18,7 @@ export const getters = {
 	}
 };
 export const actions = {
-	setView({ commit }: any, value: SetViewArgType): void {
-		commit('SET_VIEW', value);
+	setView({ commit }: any, settings: SetViewArgType): void {
+		commit('SET_VIEW', settings);
 	}
 };
