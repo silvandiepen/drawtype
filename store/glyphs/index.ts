@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import { GlyphsStateType } from './types';
-import { Characters, CharactersType } from '~/assets/characters.ts';
+import { GlyphsStateType, CharactersType } from '@/types';
+import { Characters } from '~/assets/characters.ts';
 
 export const state = (): GlyphsStateType => ({
 	characters: Characters

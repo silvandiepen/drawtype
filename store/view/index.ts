@@ -1,12 +1,14 @@
-import { ViewStateType } from './types';
+import Vue from 'vue';
+import { ViewStateType, SetViewArgType } from '@/types';
 
 export const state = (): ViewStateType => ({
-	size: 10
+	size: 10,
+	opacity: '1'
 });
 
 export const mutations = {
-	SET_SIZE: (state: ViewStateType) => (value: number) => {
-		state.size = value;
+	SET_VIEW: (state: ViewStateType) => (value: SetViewArgType) => {
+		Vue.set(state, value.type, value.value);
 	}
 };
 
@@ -16,7 +18,7 @@ export const getters = {
 	}
 };
 export const actions = {
-	setSize({ commit }: any, value: number): void {
-		commit('SET_SIZE', value);
+	setView({ commit }: any, value: SetViewArgType): void {
+		commit('SET_VIEW', value);
 	}
 };

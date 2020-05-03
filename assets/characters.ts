@@ -1,13 +1,5 @@
 /* prettier-ignore */
-
-export interface CharactersType {
-	name: string,
-	title: string,
-	active?: boolean,
-	data: Array<string>,
-	id: string
-}
-
+import { CharactersType} from '@/types'
 export const Characters: CharactersType[] = [
 	{
 		id: '0-9',

@@ -11,7 +11,7 @@
 <script>
 import Vue from 'vue';
 import { fabric } from 'fabric';
-import { PSBrush } from '@arch-inc/fabricjs-psbrush/dist';
+import { PSStroke } from '@arch-inc/fabricjs-psbrush/dist';
 // import { ICanvasOptions } from 'fabric/fabric-impl';
 // import { BrushStateType } from '@/store/brush/types';
 // interface GlyphCanvasDataType {
@@ -69,7 +69,7 @@ export default Vue.extend({
 				width: size.height
 			});
 
-			this.brush = new PSBrush(this.canvas);
+			this.brush = new PSStroke(this.canvas, {});
 			this.brush.width = this.brushSettings.size;
 			this.brush.color = '#000';
 

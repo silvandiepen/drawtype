@@ -7,5 +7,5 @@ export type BrushStateType = {
 };
 export interface SetBrushArgType {
 	value: string;
-	type: string;
+	type: 'size' | 'color' | 'opacity' | 'smooth' | 'pressure';
 }

@@ -21,7 +21,7 @@
 		"test": "jest"
 	},
 	"dependencies": {
-		"@arch-inc/fabricjs-psbrush": "0.0.15",
+		"@arch-inc/fabricjs-psbrush": "git+https://github.com/silvandiepen/fabricjs-psbrush.git",
 		"@nuxt/typescript-runtime": "^0.4.0",
 		"@nuxtjs/axios": "^5.4.1",
 		"@nuxtjs/google-analytics": "^2.2.0",

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { BrushStateType, SetBrushArgType } from './types';
+import { BrushStateType, SetBrushArgType } from '@/types';
 
 export const state = (): BrushStateType => ({
 	size: 20,

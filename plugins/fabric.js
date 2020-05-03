@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import vueFabricWrapper from 'vue-fabric-wrapper';
+// import Vue from 'vue';
+// import vueFabricWrapper from 'vue-fabric-wrapper';
 
-Vue.component('FabricCanvas', vueFabricWrapper.FabricCanvas);
-Vue.component('FabricCircle', vueFabricWrapper.FabricCircle);
-Vue.component('FabricDotGrid', vueFabricWrapper.FabricDotGrid);
+// Vue.component('FabricCanvas', vueFabricWrapper.FabricCanvas);
+// Vue.component('FabricCircle', vueFabricWrapper.FabricCircle);
+// Vue.component('FabricDotGrid', vueFabricWrapper.FabricDotGrid);
