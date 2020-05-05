@@ -9,7 +9,7 @@
 			v-for="(glyphset, idg) in glyphsets"
 			:key="idg"
 			class="glyphs__set"
-			:style="`--glyph-size:${viewSize}em`"
+			:style="`--view-size:${viewSize}em; --view-opacity:${viewOpacity / 100}`"
 		>
 			<h3 class="glyphs__title">{{ glyphset.title }}</h3>
 			<ul class="glyphs__list">
@@ -50,6 +50,11 @@ export default {
 		viewSize: {
 			get() {
 				return this.$store.getters['view/getSize'];
+			}
+		},
+		viewOpacity: {
+			get() {
+				return this.$store.getters['view/getOpacity'];
 			}
 		}
 	},
@@ -99,6 +104,7 @@ export default {
 		position: sticky;
 		top: 0;
 		z-index: 2;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		background-color: white;
 		padding: 1em 2em;
 	}
@@ -111,9 +117,9 @@ export default {
 		overflow: hidden;
 	}
 	&__item {
-		width: var(--glyph-size, 10em);
-		height: var(--glyph-size, 10em);
-		padding: calc(var(--glyph-size, 10em) / 20);
+		width: var(--view-size, 10em);
+		height: var(--view-size, 10em);
+		padding: calc(var(--view-size, 10em) / 20);
 		canvas {
 			border: 1px solid rgba(0, 0, 0, 0.25);
 			background-color: white;

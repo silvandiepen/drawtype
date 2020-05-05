@@ -120,11 +120,11 @@ export default Vue.extend({
 		left: 0;
 		width: 100%;
 		height: 100%;
-		font-size: calc(var(--glyph-size) / 2);
+		font-size: calc(var(--view-size) / 2);
 		// line-height: 1.75;
-		line-height: calc((var(--glyph-size) / 5) * 1em);
+		line-height: calc((var(--view-size) / 5) * 1em);
 		text-align: center;
-		opacity: 0.15;
+		opacity: var(--view-opacity);
 		pointer-events: none;
 	}
 }

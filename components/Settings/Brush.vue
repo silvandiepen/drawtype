@@ -3,14 +3,15 @@
 		<div
 			class="settings__brush-preview"
 			:style="
-				`--brush-opacity: ${brushOpacity}; --brush-size: ${brushSize};--brush-color: ${brushColor};`
+				`--brush-opacity: ${parseInt(brushOpacity) /
+					100}; --brush-size: ${brushSize};--brush-color: ${brushColor};`
 			"
 		/>
 		<div class="settings__fields">
 			<div class="input-field">
 				<input
 					v-model="brushSize"
-					class="input-field__input--range input--range"
+					class="input-field__input--range input--range input--range__size"
 					type="range"
 					min="1"
 					max="100"
@@ -21,7 +22,7 @@
 			<div class="input-field">
 				<input
 					v-model="brushOpacity"
-					class="input-field__input--range input--range"
+					class="input-field__input--range input--range input--range__opacity"
 					type="range"
 					min="1"
 					max="100"
@@ -97,7 +98,7 @@ export default Vue.extend({
 	border-radius: 50%;
 	background-color: var(--brush-color, black);
 	transform: translate(50%, 0%);
-	// opacity: calc((var(--brush-opacity, 1) / 100));
+	opacity: var(--brush-opacity);
 }
 .settings {
 	&--brush {
@@ -126,7 +127,29 @@ export default Vue.extend({
 		}
 		.input--range {
 			width: 2em;
+			border: 2px solid currentColor;
+
 			-webkit-appearance: slider-vertical; /* WebKit */
+			&__opacity {
+				&::-webkit-slider-thumb,
+				&::-webkit-slider-runnable-track {
+					background-color: none;
+					background-image: linear-gradient(to bottom, black, transparent);
+				}
+			}
+			&__size {
+				&::-webkit-slider-thumb,
+				&::-webkit-slider-runnable-track {
+					background-color: none;
+					background-image: linear-gradient(
+						to left bottom,
+						black 50%,
+						transparent 50%
+					);
+					transform: skewX(-50%);
+					transform-origin: 100% 100%;
+				}
+			}
 		}
 	}
 }

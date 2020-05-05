@@ -29,6 +29,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { debounce } from 'lodash';
 export default Vue.extend({
 	computed: {
 		glyphSize: {
@@ -36,7 +37,9 @@ export default Vue.extend({
 				return this.$store.getters['view/getSize'];
 			},
 			set(value: number): void {
-				this.$store.dispatch('view/setView', { type: 'size', value });
+				debounce(() => {
+					this.$store.dispatch('view/setView', { type: 'size', value });
+				}, 500);
 			}
 		},
 		glyphOpacity: {

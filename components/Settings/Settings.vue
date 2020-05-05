@@ -48,6 +48,7 @@ export default Vue.extend({
 		width: 2em;
 		height: 2em;
 		border-radius: 50%;
+		-webkit-appearance: none;
 	}
 }
 </style>
