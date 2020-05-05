@@ -1,13 +1,14 @@
 <template>
 	<main class="page-draw">
 		<div class="heading">
-			Draw
+			<div></div>
+			<div><input v-model="fontTitle" class="font-title" type="text" /></div>
 			<SettingsPanel class="heading__settings" />
 		</div>
 		<div
 			v-for="(glyphset, idg) in glyphsets"
 			:key="idg"
-			class="glyps__set"
+			class="glyphs__set"
 			:style="`--glyph-size:${viewSize}em`"
 		>
 			<h3 class="glyphs__title">{{ glyphset.title }}</h3>
@@ -33,6 +34,14 @@ export default {
 		SettingsPanel
 	},
 	computed: {
+		fontTitle: {
+			get() {
+				return this.$store.getters['glyphs/getTitle'];
+			},
+			set(value) {
+				this.$store.dispatch('glyphs/setTitle', value);
+			}
+		},
 		glyphsets: {
 			get() {
 				return this.$store.getters['glyphs/getActiveCharacterSets'];
@@ -46,10 +55,23 @@ export default {
 	},
 	created() {
 		this.$store.dispatch('glyphs/setCharacterSets');
+	},
+	mounted() {
+		// get the sticky element
+		const stickyElm = document.querySelectorAll('.glyphs__set');
+
+		stickyElm.forEach((elm) => {
+			const observer = new IntersectionObserver(
+				([e]) => e.target.classList.toggle('isSticky', e.intersectionRatio < 1),
+				{ threshold: [1] }
+			);
+			observer.observe(elm);
+		});
 	}
 };
 </script>
 <style lang="scss">
+@import '~tools';
 .heading {
 	position: sticky;
 	top: 0;
@@ -57,6 +79,20 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	padding: 1em;
+	> div {
+		width: 33.33%;
+	}
+}
+.font-title {
+	width: 100%;
+	border: none;
+	outline: 1px solid transparent;
+	text-align: center;
+	padding: 0.5em;
+	@include heading-h3();
+	&:focus {
+		outline: 1px solid currentColor;
+	}
 }
 .glyphs {
 	&__title {

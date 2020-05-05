@@ -1,13 +1,13 @@
+html {
+	font-family: 'Inter', sans-serif;
+}
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-	color: inherit;
-	&.sub {
-		font-weight: 400;
-	}
+	@include heading;
 }
 
 h1,
@@ -16,32 +16,19 @@ h2 {
 }
 
 h1 {
-	font-size: grid(1);
-	line-height: 1;
-	@include min-(font-size, 1, 48);
-	@include max-(font-size, 1, 96);
+	@include heading-h1();
 }
 h2 {
-	font-size: grid(0.75);
-	line-height: 1.2;
-	@include min-(font-size, 0.75, 32);
-	@include max-(font-size, 0.75, 80);
+	@include heading-h2();
 }
 h3 {
-	font-size: grid(0.5);
-	line-height: 1.3;
-	@include min-(font-size, 0.5, 28);
-	@include max-(font-size, 0.5, 64);
+	@include heading-h3();
 }
 h4 {
-	font-size: grid(0.4);
-	line-height: 1.4;
-	@include min-(font-size, 0.4, 16);
-	@include max-(font-size, 0.4, 48);
+	@include heading-h4();
 }
 h5 {
-	font-size: 1rem;
-	line-height: 1.5;
+	@include heading-h5();
 }
 
 li,

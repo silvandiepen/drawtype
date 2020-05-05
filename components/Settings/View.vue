@@ -1,15 +1,27 @@
 <template>
-	<div class="settings setting--view">
-		<div>
+	<div class="settings settings--view">
+		<div class="settings__fields">
 			<div class="input-field">
-				<input v-model="glyphSize" type="range" min="5" max="50" />
-				<label>viewsize</label>
-				<span class="input-field__value">{{ glyphSize }}</span>
+				<input
+					v-model="glyphSize"
+					type="range"
+					min="5"
+					max="50"
+					class="input-field__input--range input--range"
+				/>
+				<label>size</label>
+				<!-- <span class="input-field__value">{{ glyphSize }}</span> -->
 			</div>
 			<div class="input-field">
-				<input v-model="glyphOpacity" type="range" min="0" max="100" />
-				<label>example opacity</label>
-				<span class="input-field__value">{{ glyphOpacity }}</span>
+				<input
+					v-model="glyphOpacity"
+					type="range"
+					min="0"
+					max="100"
+					class="input-field__input--range input--range"
+				/>
+				<label>opacity</label>
+				<!-- <span class="input-field__value">{{ glyphOpacity }}</span> -->
 			</div>
 		</div>
 	</div>
@@ -38,3 +50,15 @@ export default Vue.extend({
 	}
 });
 </script>
+
+<style lang="scss">
+.settings {
+	&--view {
+		display: flex;
+		justify-content: flex-end;
+	}
+	&__fields {
+		display: flex;
+	}
+}
+</style>

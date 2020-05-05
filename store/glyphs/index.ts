@@ -3,6 +3,7 @@ import { GlyphsStateType, CharactersType } from '@/types';
 import { Characters } from '~/assets/characters.ts';
 
 export const state = (): GlyphsStateType => ({
+	title: 'draw',
 	characters: undefined
 });
 
@@ -28,6 +29,9 @@ export const mutations = {
 		});
 
 		state.characters = charsets;
+	},
+	SET_TITLE: (state: GlyphsStateType, value: string) => {
+		state.title = value;
 	}
 };
 
@@ -38,6 +42,9 @@ export const getters = {
 	getActiveCharacterSets(state: GlyphsStateType): CharactersType[] | undefined {
 		if (state.characters)
 			return state.characters.filter((set) => set.active === true);
+	},
+	getTitle(state: GlyphsStateType): string {
+		return state.title;
 	}
 };
 
@@ -47,5 +54,8 @@ export const actions = {
 	},
 	toggleCharset({ commit }: any, name: string) {
 		commit('TOGGLE_CHARSET', name);
+	},
+	setTitle({ commit }: any, value: string) {
+		commit('SET_TITLE', value);
 	}
 };

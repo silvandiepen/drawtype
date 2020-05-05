@@ -2,18 +2,32 @@
 	<div class="settings--brush">
 		<div
 			class="settings__brush-preview"
-			:style="`--brush-opacity: ${brushOpacity}; --brush-size: ${brushSize};`"
+			:style="
+				`--brush-opacity: ${brushOpacity}; --brush-size: ${brushSize};--brush-color: ${brushColor};`
+			"
 		/>
 		<div class="settings__fields">
 			<div class="input-field">
-				<input v-model="brushSize" type="range" min="1" max="100" />
+				<input
+					v-model="brushSize"
+					class="input-field__input--range input--range"
+					type="range"
+					min="1"
+					max="100"
+				/>
 				<label>Size</label>
-				<span class="input-field__value">{{ brushSize }}</span>
+				<!-- <span class="input-field__value">{{ brushSize }}</span> -->
 			</div>
 			<div class="input-field">
-				<input v-model="brushOpacity" type="range" min="1" max="100" />
+				<input
+					v-model="brushOpacity"
+					class="input-field__input--range input--range"
+					type="range"
+					min="1"
+					max="100"
+				/>
 				<label>Opacity</label>
-				<span class="input-field__value">{{ brushOpacity }}</span>
+				<!-- <span class="input-field__value">{{ brushOpacity }}</span> -->
 			</div>
 			<!-- <div class="input-field">
 				<input v-model="brushSmoothness" type="range" min="1" max="100" />
@@ -21,9 +35,13 @@
 				<span class="input-field__value">{{ brushSmoothness }}</span>
 			</div> -->
 			<div class="input-field">
-				<input v-model="brushColor" type="color" />
+				<input
+					v-model="brushColor"
+					class="input-field__input--color"
+					type="color"
+				/>
 				<label>Color</label>
-				<span class="input-field__value">{{ brushColor }}</span>
+				<!-- <span class="input-field__value">{{ brushColor }}</span> -->
 			</div>
 		</div>
 	</div>
@@ -77,23 +95,37 @@ export default Vue.extend({
 	width: calc((var(--brush-size, 10) / 30) * 1em);
 	height: calc((var(--brush-size, 10) / 30) * 1em);
 	border-radius: 50%;
-	background-color: black;
+	background-color: var(--brush-color, black);
 	transform: translate(50%, 0%);
 	// opacity: calc((var(--brush-opacity, 1) / 100));
 }
 .settings {
 	&--brush {
-		background-color: rgba(0, 0, 0, 1);
-		color: white;
+		color: currentColor;
+		padding: 0;
 	}
-	&__fields {
-		border: 1px solid red;
+}
+.settings--brush {
+	.settings__fields {
+		display: flex;
+		flex-direction: column;
+	}
+	.input-field {
+		flex-direction: row-reverse;
+		writing-mode: bt-lr; /* IE */
+		padding: 0.5em;
+		&__value {
+			position: absolute;
+			top: 100%;
+			border: 1px solid red;
+		}
 		label {
 			position: absolute;
+			right: 100%;
+			writing-mode: vertical-lr;
 		}
-		[type='range'] {
+		.input--range {
 			width: 2em;
-			writing-mode: bt-lr; /* IE */
 			-webkit-appearance: slider-vertical; /* WebKit */
 		}
 	}
