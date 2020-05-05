@@ -15,7 +15,11 @@ module.exports = {
 					'include',
 					'content',
 					'at-root',
-					'function'
+					'function',
+					'warn',
+					'return',
+					'debug',
+					'while'
 				]
 			}
 		],

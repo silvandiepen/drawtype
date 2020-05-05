@@ -3,7 +3,7 @@ import { BrushStateType, SetBrushArgType } from '@/types';
 
 export const state = (): BrushStateType => ({
 	size: '20',
-	color: 'black',
+	color: '#000000',
 	opacity: '100',
 	smooth: '50',
 	pressure: '1'

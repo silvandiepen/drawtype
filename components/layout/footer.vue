@@ -17,8 +17,8 @@ export default Vue.extend({});
 
 // Footer styles
 .footer {
-	background-color: color(Blue);
-	color: color(White);
+	background-color: black;
+	color: white;
 	text-align: center;
 	padding: grid(1);
 }

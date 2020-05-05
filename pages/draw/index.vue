@@ -2,12 +2,14 @@
 	<main class="page-draw">
 		<div class="heading">
 			Draw
-			<div class="heading__settings">
-				<BrushSettings />
-				<ViewSettings />
-			</div>
+			<SettingsPanel class="heading__settings" />
 		</div>
-		<div v-for="(glyphset, idg) in glyphsets" :key="idg" class="glyps__set">
+		<div
+			v-for="(glyphset, idg) in glyphsets"
+			:key="idg"
+			class="glyps__set"
+			:style="`--glyph-size:${viewSize}em`"
+		>
 			<h3 class="glyphs__title">{{ glyphset.title }}</h3>
 			<ul class="glyphs__list">
 				<li
@@ -22,19 +24,23 @@
 	</main>
 </template>
 <script>
-import { BrushSettings, ViewSettings } from '@/components';
+import { SettingsPanel } from '@/components';
 import GlyphCanvas from '@/components/GlyphCanvas/GlyphCanvas.vue';
 
 export default {
 	components: {
 		GlyphCanvas,
-		BrushSettings,
-		ViewSettings
+		SettingsPanel
 	},
 	computed: {
 		glyphsets: {
 			get() {
 				return this.$store.getters['glyphs/getActiveCharacterSets'];
+			}
+		},
+		viewSize: {
+			get() {
+				return this.$store.getters['view/getSize'];
 			}
 		}
 	},
@@ -51,15 +57,14 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	padding: 1em;
-	&__settings {
-		padding: 1em;
-		display: flex;
-		background-color: rgba(0, 0, 0, 0.25);
-	}
 }
 .glyphs {
 	&__title {
-		padding: 2em;
+		position: sticky;
+		top: 0;
+		z-index: 2;
+		background-color: white;
+		padding: 1em 2em;
 	}
 	&__list {
 		display: flex;
@@ -70,10 +75,9 @@ export default {
 		overflow: hidden;
 	}
 	&__item {
-		--size: 10em;
-		width: var(--size);
-		height: var(--size);
-		padding: calc(var(--size) / 20);
+		width: var(--glyph-size, 10em);
+		height: var(--glyph-size, 10em);
+		padding: calc(var(--glyph-size, 10em) / 20);
 		canvas {
 			border: 1px solid rgba(0, 0, 0, 0.25);
 			background-color: white;

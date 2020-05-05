@@ -1,11 +1,10 @@
 <template>
-	<div class="settings setting--brush">
-		<h4>Brush</h4>
+	<div class="settings--brush">
 		<div
-			class="settings__brush"
+			class="settings__brush-preview"
 			:style="`--brush-opacity: ${brushOpacity}; --brush-size: ${brushSize};`"
 		/>
-		<div>
+		<div class="settings__fields">
 			<div class="input-field">
 				<input v-model="brushSize" type="range" min="1" max="100" />
 				<label>Size</label>
@@ -16,11 +15,11 @@
 				<label>Opacity</label>
 				<span class="input-field__value">{{ brushOpacity }}</span>
 			</div>
-			<div class="input-field">
+			<!-- <div class="input-field">
 				<input v-model="brushSmoothness" type="range" min="1" max="100" />
 				<label>Smoothness</label>
 				<span class="input-field__value">{{ brushSmoothness }}</span>
-			</div>
+			</div> -->
 			<div class="input-field">
 				<input v-model="brushColor" type="color" />
 				<label>Color</label>
@@ -70,12 +69,33 @@ export default Vue.extend({
 });
 </script>
 <style lang="scss">
-.settings__brush {
+.settings__brush-preview {
+	position: absolute;
+	right: 50%;
+	bottom: calc(100% + 1em);
 	display: block;
-	width: calc((var(--brush-size, 10) / 10) * 1em);
-	height: calc((var(--brush-size, 10) / 10) * 1em);
+	width: calc((var(--brush-size, 10) / 30) * 1em);
+	height: calc((var(--brush-size, 10) / 30) * 1em);
 	border-radius: 50%;
 	background-color: black;
-	opacity: calc((var(--brush-opacity, 1) / 100));
+	transform: translate(50%, 0%);
+	// opacity: calc((var(--brush-opacity, 1) / 100));
+}
+.settings {
+	&--brush {
+		background-color: rgba(0, 0, 0, 1);
+		color: white;
+	}
+	&__fields {
+		border: 1px solid red;
+		label {
+			position: absolute;
+		}
+		[type='range'] {
+			width: 2em;
+			writing-mode: bt-lr; /* IE */
+			-webkit-appearance: slider-vertical; /* WebKit */
+		}
+	}
 }
 </style>

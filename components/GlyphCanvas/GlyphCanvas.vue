@@ -31,7 +31,8 @@ export default Vue.extend({
 	},
 	data: () => ({
 		brush: null,
-		canvas: null
+		canvas: null,
+		canvasContainer: null
 	}),
 	computed: {
 		brushSettings() {
@@ -39,6 +40,9 @@ export default Vue.extend({
 		},
 		charCode() {
 			return this.$props.glyph.charCodeAt(0);
+		},
+		viewSize() {
+			return this.$store.state.view.size;
 		}
 	},
 	watch: {
@@ -48,6 +52,11 @@ export default Vue.extend({
 			},
 			deep: true,
 			immediate: true
+		},
+		viewSize: {
+			handler() {
+				this.setCanvasSize();
+			}
 		}
 	},
 	mounted() {
@@ -56,6 +65,11 @@ export default Vue.extend({
 		// }, 500);
 	},
 	methods: {
+		setCanvasSize() {
+			this.canvas.setHeight(this.viewSize * 14.5);
+			this.canvas.setWidth(this.viewSize * 14.5);
+			this.canvas.renderAll();
+		},
 		setBrushSettings() {
 			// console.log(this.brush);
 			if (
@@ -71,21 +85,20 @@ export default Vue.extend({
 			}
 		},
 		initCanvas() {
-			const element = document.querySelector('#canvas-' + this.charCode);
-			const size = element.getBoundingClientRect();
+			this.canvasContainer = document.querySelector('#canvas-' + this.charCode);
 
-			this.canvas = new fabric.Canvas(element, {
+			this.canvas = new fabric.Canvas(this.canvasContainer, {
 				isDrawingMode: true,
-				enablePointerEvents: true,
-				height: size.height,
-				width: size.height
+				enablePointerEvents: true
 			});
+			this.setCanvasSize();
 			this.setBrush();
 		},
 		setBrush() {
 			this.brush = new PSBrush(this.canvas, {});
 			this.brush.width = this.brushSettings.size;
 			this.brush.color = '#000000';
+			this.brush.opacity = 0.5;
 			this.canvas.freeDrawingBrush = this.brush;
 		},
 		setStroke() {
@@ -100,15 +113,16 @@ export default Vue.extend({
 <style lang="scss">
 .glyph-canvas {
 	position: relative;
-
+	height: 100%;
 	&__glyph {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
-		font-size: calc(var(--size) / 2);
-		line-height: 1.75;
-		// line-height: var(--size);
+		height: 100%;
+		font-size: calc(var(--glyph-size) / 2);
+		// line-height: 1.75;
+		line-height: calc((var(--glyph-size) / 5) * 1em);
 		text-align: center;
 		opacity: 0.15;
 		pointer-events: none;
