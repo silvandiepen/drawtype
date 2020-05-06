@@ -1,7 +1,7 @@
 <template>
 	<div class="settings settings--view">
 		<div class="settings__fields">
-			<div class="input-field">
+			<!-- <div class="input-field">
 				<input
 					v-model="glyphSize"
 					type="range"
@@ -10,8 +10,7 @@
 					class="input-field__input--range input--range"
 				/>
 				<label>size</label>
-				<!-- <span class="input-field__value">{{ glyphSize }}</span> -->
-			</div>
+			</div> -->
 			<div class="input-field">
 				<input
 					v-model="glyphOpacity"
@@ -20,8 +19,12 @@
 					max="100"
 					class="input-field__input--range input--range"
 				/>
-				<label>opacity</label>
-				<!-- <span class="input-field__value">{{ glyphOpacity }}</span> -->
+				<label class="input-field__label">
+					<span class="input-field__label_text">
+						Opacity
+					</span>
+					<span class="input-field__value"> {{ glyphOpacity }}% </span>
+				</label>
 			</div>
 		</div>
 	</div>

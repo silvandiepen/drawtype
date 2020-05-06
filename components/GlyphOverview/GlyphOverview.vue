@@ -70,6 +70,7 @@ export default {
 };
 </script>
 <style lang="scss">
+@import '~tools';
 .glyphs {
 	&__overview {
 	}
@@ -80,6 +81,9 @@ export default {
 		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		background-color: white;
 		padding: 1em 2em;
+		@media #{$small-only} {
+			padding: 1em;
+		}
 	}
 	&__list {
 		display: flex;

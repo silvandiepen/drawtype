@@ -8,7 +8,7 @@
 			"
 		/>
 		<div class="settings__fields">
-			<div class="input-field">
+			<div class="input-field input-field--range">
 				<input
 					v-model="brushSize"
 					class="input-field__input--range input--range input--range__size"
@@ -22,12 +22,12 @@
 				</label>
 				<!-- <span class="input-field__value">{{ brushSize }}</span> -->
 			</div>
-			<div class="input-field">
+			<div class="input-field input-field--range">
 				<input
 					v-model="brushOpacity"
 					class="input-field__input--range input--range input--range__opacity"
 					type="range"
-					min="1"
+					min="0"
 					max="100"
 				/>
 				<label>
@@ -41,10 +41,10 @@
 				<label>Smoothness</label>
 				<span class="input-field__value">{{ brushSmoothness }}</span>
 			</div> -->
-			<div class="input-field">
+			<div class="input-field input-field--color">
 				<input
 					v-model="brushColor"
-					class="input-field__input--color"
+					class="input-field__input--color input--color"
 					type="color"
 				/>
 				<label>
@@ -97,6 +97,7 @@ export default Vue.extend({
 });
 </script>
 <style lang="scss">
+@import '~tools';
 .settings__brush-preview {
 	position: absolute;
 	right: 50%;
@@ -122,10 +123,12 @@ export default Vue.extend({
 		flex-direction: column;
 	}
 	.input-field {
-		width: 2em;
-		height: 11em;
 		// writing-mode: bt-lr; /* IE */
 		padding: 0em;
+		&--range {
+			width: 2em;
+			height: 11em;
+		}
 		&__label {
 			opacity: 1;
 		}
@@ -144,8 +147,27 @@ export default Vue.extend({
 			padding: 0;
 		}
 		.input--color {
-			border: 2px solid black;
-			border-radius: 0.25em;
+			// border: 2px solid black;
+			// border-radius: 0.25em;
+			// input[type='color'] {
+			width: 1.5em;
+			height: 1.5em;
+			border: none;
+			padding: 0;
+			border-radius: $base-border-radius;
+			-webkit-appearance: none;
+
+			&::-webkit-color-swatch-wrapper {
+				padding: 0;
+				border-radius: $base-border-radius;
+			}
+			&::-webkit-color-swatch {
+				border: none;
+				border-radius: $base-border-radius;
+			}
+			&:focus {
+				outline: 2px solid white;
+			}
 		}
 		.input--range {
 			position: absolute;
@@ -156,32 +178,30 @@ export default Vue.extend({
 			// -webkit-appearance: slider-vertical; /* Does work, but not with styling :(  */
 			transform: translateY(-100%) rotate(90deg);
 			transform-origin: 0 100%;
-			&__opacity {
+			&__opacity,
+			&__size {
 				&::-webkit-slider-runnable-track {
-					border: 2px solid black;
+					border: 2px solid transparent;
 					background-color: transparent;
-					background-image: linear-gradient(to left, black, transparent);
+					background-repeat: no-repeat;
 					background-size: 110% 110%;
 				}
 				&::-webkit-slider-thumb {
-					box-shadow: 0 0 0.5em 0em black;
+					box-shadow: 0 0 0.5em 0em rgba(0, 0, 0, 0.25);
+				}
+			}
+			&__opacity {
+				&::-webkit-slider-runnable-track {
+					background-image: linear-gradient(to left, black, transparent);
 				}
 			}
 			&__size {
 				&::-webkit-slider-runnable-track {
-					border: 2px solid black;
-					background-color: transparent;
 					background-image: linear-gradient(
 						to left bottom,
 						black 49%,
 						transparent 51%
 					);
-					background-size: 110% 110%;
-					transform: skewX(-50%);
-					transform-origin: 100% 100%;
-				}
-				&::-webkit-slider-thumb {
-					box-shadow: 0 0 0.5em 0em black;
 				}
 			}
 		}
