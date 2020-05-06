@@ -1,17 +1,18 @@
 <template>
 	<main class="page page--home">
-		<HenrisIntro />
+		<Logo />
+		<NuxtLink class="button" to="/draw">Start Your Font</NuxtLink>
 	</main>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HenrisIntro from '@/components/intro.vue';
-
+import Logo from '@/components/Logo.vue';
 export default Vue.extend({
 	components: {
-		HenrisIntro
-	}
+		Logo
+	},
+	layout: 'home'
 });
 </script>
 
@@ -20,6 +21,7 @@ export default Vue.extend({
 .page {
 	&--home {
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		height: 100vh;

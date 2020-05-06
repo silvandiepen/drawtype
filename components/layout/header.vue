@@ -1,9 +1,7 @@
 <template>
 	<header id="header" class="header">
 		<h3 class="header__logo">
-			<NuxtLink to="/">
-				{{ projectName }}
-			</NuxtLink>
+			<NuxtLink to="/"> <Logo /> </NuxtLink>
 		</h3>
 		<NavigationTrigger />
 		<NavigationMenu />
@@ -14,11 +12,12 @@
 import Vue from 'vue';
 import NavigationMenu from '@/components/navigation/menu.vue';
 import NavigationTrigger from '@/components/navigation/trigger.vue';
-
+import Logo from '@/components/Logo.vue';
 export default Vue.extend({
 	components: {
 		NavigationMenu,
-		NavigationTrigger
+		NavigationTrigger,
+		Logo
 	},
 	data: () => ({
 		projectName: 'DrawType'
@@ -46,6 +45,9 @@ export default Vue.extend({
 		font-size: 1.5rem;
 		line-height: 1.5rem;
 		padding: 1rem 0;
+		svg {
+			height: 2em;
+		}
 		a {
 			text-decoration: none;
 		}

@@ -2,7 +2,12 @@
 	<div class="heading row">
 		<div class="small-half medium-third"></div>
 		<div class="small-half medium-third">
-			<input v-model="fontTitle" class="font-title" type="text" />
+			<input
+				v-model="fontTitle"
+				placeholder="Your font title"
+				class="font-title"
+				type="text"
+			/>
 		</div>
 		<SettingsPanel class="hide-for-small-only medium-third heading__settings" />
 	</div>

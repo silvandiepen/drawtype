@@ -3,7 +3,7 @@ import { GlyphsStateType, CharactersType } from '@/types';
 import { Characters } from '~/assets/characters.ts';
 
 export const state = (): GlyphsStateType => ({
-	title: 'draw',
+	title: '',
 	characters: undefined
 });
 
