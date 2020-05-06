@@ -45,23 +45,12 @@ export default Vue.extend({
 		viewSize(): number {
 			return this.$store.state.view.size;
 		},
-		active: {
+		isActive: {
 			get(): boolean {
-				return this.$store.getters['glyphs/isActive'](
-					this.$props.glyph.unicode
+				return (
+					this.$store.state.ui.currentActiveGlyph === this.$props.glyph.unicode
 				);
 			}
-			// set(bool): void {
-			// 	this.$store.dispatch('glyphs/setActive', {
-			// 		unicode: this.$props,
-			// 		active: bool
-			// 	});
-			// }
-		},
-		isActive() {
-			return (
-				this.$store.state.ui.currentActiveGlyph === this.$props.glyph.unicode
-			);
 		}
 	},
 	watch: {
@@ -90,8 +79,8 @@ export default Vue.extend({
 	mounted() {
 		this.initCanvas();
 
-		this.canvas.on('object:added', (e) => {
-			console.log('haaaiii', e);
+		this.canvas.on('object:added', () => {
+			// console.log('haaaiii', e);
 		});
 		// if (this.canvas) console.log(this.canvas);
 		// document.addEventListener('after:render', () => {
