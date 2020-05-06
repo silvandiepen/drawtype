@@ -1,7 +1,7 @@
 <template>
 	<main class="page page--home">
 		<Logo />
-		<!-- <NuxtLink class="button" to="/draw">Start Your Font</NuxtLink> -->
+		<NuxtLink class="button" to="/draw">Start Your Font</NuxtLink>
 	</main>
 </template>
 
