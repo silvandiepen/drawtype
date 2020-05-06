@@ -123,10 +123,9 @@ export default Vue.extend({
 	}
 	.input-field {
 		width: 2em;
-		// flex-direction: row-reverse;
 		height: 11em;
 		// writing-mode: bt-lr; /* IE */
-		padding: 0.5em;
+		padding: 0em;
 		&__label {
 			opacity: 1;
 		}
@@ -143,6 +142,10 @@ export default Vue.extend({
 			right: calc(100% + 0.5em);
 			writing-mode: vertical-lr;
 			padding: 0;
+		}
+		.input--color {
+			border: 2px solid black;
+			border-radius: 0.25em;
 		}
 		.input--range {
 			position: absolute;

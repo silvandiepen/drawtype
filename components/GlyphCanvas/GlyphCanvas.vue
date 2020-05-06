@@ -1,5 +1,10 @@
 <template>
-	<div ref="glyphCanvasContainer" class="glyph-canvas">
+	<div
+		ref="glyphCanvasContainer"
+		class="glyph-canvas"
+		:class="{ 'glyph-canvas--active': isActive }"
+		@click="setActive"
+	>
 		<canvas
 			:id="`canvas-${glyph.unicode}`"
 			ref="glyphCanvas"
@@ -52,6 +57,11 @@ export default Vue.extend({
 			// 		active: bool
 			// 	});
 			// }
+		},
+		isActive() {
+			return (
+				this.$store.state.ui.currentActiveGlyph === this.$props.glyph.unicode
+			);
 		}
 	},
 	watch: {
@@ -65,6 +75,15 @@ export default Vue.extend({
 		viewSize: {
 			handler() {
 				this.setCanvasSize();
+			}
+		},
+		isActive: {
+			handler() {
+				if (this.isActive) {
+					this.canvas.isDrawingMode = true;
+				} else {
+					this.canvas.isDrawingMode = false;
+				}
 			}
 		}
 	},
@@ -80,6 +99,9 @@ export default Vue.extend({
 		// });
 	},
 	methods: {
+		setActive() {
+			this.$store.dispatch('ui/setActiveGlyph', this.$props.glyph.unicode);
+		},
 		setCanvasSize() {
 			if (this.canvas) {
 				this.canvas.setHeight(240);
@@ -108,9 +130,7 @@ export default Vue.extend({
 					'#canvas-' + this.$props.glyph.unicode
 				);
 				if (this.canvasContainer) {
-					this.canvas = new fabric.Canvas(this.canvasContainer, {
-						isDrawingMode: true
-					});
+					this.canvas = new fabric.Canvas(this.canvasContainer, {});
 					this.setCanvasSize();
 					this.setBrush();
 				}
@@ -137,7 +157,6 @@ export default Vue.extend({
 });
 </script>
 <style lang="scss">
-// .lower-canvas {
 // 	z-index: 10;
 // 	mix-blend-mode: multiply;
 // 	pointer-events: none;
@@ -146,6 +165,15 @@ export default Vue.extend({
 	position: relative;
 	height: 100%;
 	background-color: white;
+	canvas {
+		pointer-events: none;
+	}
+	&--active {
+		box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.15);
+		canvas {
+			pointer-events: all;
+		}
+	}
 	&,
 	canvas,
 	&__glyph {
