@@ -7,13 +7,18 @@
 </template>
 <script lang="ts">
 import Vue from 'vue';
+import { SettingsPanel } from '@/components';
+
 export default Vue.extend({
+	components: {
+		SettingsPanel
+	},
 	computed: {
 		fontTitle: {
-			get() {
+			get(): string {
 				return this.$store.getters['glyphs/getTitle'];
 			},
-			set(value) {
+			set(value: string): void {
 				this.$store.dispatch('glyphs/setTitle', value);
 			}
 		}

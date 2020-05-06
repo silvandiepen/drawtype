@@ -70,6 +70,14 @@ export default Vue.extend({
 	},
 	mounted() {
 		this.initCanvas();
+
+		this.canvas.on('object:added', (e) => {
+			console.log('haaaiii', e);
+		});
+		// if (this.canvas) console.log(this.canvas);
+		// document.addEventListener('after:render', () => {
+		// 	console.log('this one rendered');
+		// });
 	},
 	methods: {
 		setCanvasSize() {
@@ -89,8 +97,7 @@ export default Vue.extend({
 				this.canvas.freeDrawingBrush.color
 			) {
 				this.canvas.freeDrawingBrush.color = this.brushSettings.color;
-				this.canvas.freeDrawingBrush.opacity =
-					parseInt(this.brushSettings.opacity) / 100;
+				this.canvas.freeDrawingBrush.opacity = this.brushSettings.opacity / 100;
 				this.canvas.freeDrawingBrush.width = this.brushSettings.size;
 				// this.canvas.freeDrawingBrush = this.brush;
 			}
@@ -112,7 +119,7 @@ export default Vue.extend({
 		setBrush() {
 			if (this.canvas) this.brush = new PSBrush(this.canvas);
 			if (this.brush) {
-				this.brush.width = parseInt(this.brushSettings.size);
+				this.brush.width = this.brushSettings.size;
 				this.brush.color = '#000000';
 				this.brush.opacity = 0.5;
 				this.canvas.freeDrawingBrush = this.brush;

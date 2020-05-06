@@ -1,19 +1,15 @@
 <template>
 	<main class="page-draw">
-		<div class="heading">
-			<div></div>
-			<div><input v-model="fontTitle" class="font-title" type="text" /></div>
-			<SettingsPanel class="heading__settings" />
-		</div>
+		<GlyphOverviewHeader />
 		<GlyphOverview />
 	</main>
 </template>
 <script>
-import { SettingsPanel, GlyphOverview } from '@/components';
+import { GlyphOverview, GlyphOverviewHeader } from '@/components';
 
 export default {
 	components: {
-		SettingsPanel,
+		GlyphOverviewHeader,
 		GlyphOverview
 	},
 	created() {

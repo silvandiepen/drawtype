@@ -2,11 +2,11 @@ import Vue from 'vue';
 import { BrushStateType, SetBrushArgType } from '@/types';
 
 export const state = (): BrushStateType => ({
-	size: '20',
+	size: 20,
 	color: '#000000',
-	opacity: '100',
-	smooth: '50',
-	pressure: '1'
+	opacity: 100,
+	smooth: 50,
+	pressure: 1
 });
 
 export const mutations = {
@@ -16,19 +16,19 @@ export const mutations = {
 };
 
 export const getters = {
-	getSize(state: BrushStateType): string {
+	getSize(state: BrushStateType): number {
 		return state.size;
 	},
 	getColor(state: BrushStateType): string {
 		return state.color;
 	},
-	getSmooth(state: BrushStateType): string {
+	getSmooth(state: BrushStateType): number {
 		return state.smooth;
 	},
-	getPressure(state: BrushStateType): string {
+	getPressure(state: BrushStateType): number {
 		return state.pressure;
 	},
-	getOpacity(state: BrushStateType): string {
+	getOpacity(state: BrushStateType): number {
 		return state.opacity;
 	},
 	getBrush(state: BrushStateType): BrushStateType {

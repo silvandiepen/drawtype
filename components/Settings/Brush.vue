@@ -16,7 +16,10 @@
 					min="1"
 					max="100"
 				/>
-				<label>Size</label>
+				<label>
+					<span class="input-field__value">{{ brushSize }}</span>
+					<span class="input-field__label_text">Size</span>
+				</label>
 				<!-- <span class="input-field__value">{{ brushSize }}</span> -->
 			</div>
 			<div class="input-field">
@@ -27,7 +30,10 @@
 					min="1"
 					max="100"
 				/>
-				<label>Opacity</label>
+				<label>
+					<span class="input-field__value">{{ brushOpacity }}%</span>
+					<span class="input-field__label_text">Opacity</span>
+				</label>
 				<!-- <span class="input-field__value">{{ brushOpacity }}</span> -->
 			</div>
 			<!-- <div class="input-field">
@@ -41,7 +47,10 @@
 					class="input-field__input--color"
 					type="color"
 				/>
-				<label>Color</label>
+				<label>
+					<span class="input-field__value">{{ brushColor }}</span>
+					<span class="input-field__label_text">Color</span>
+				</label>
 				<!-- <span class="input-field__value">{{ brushColor }}</span> -->
 			</div>
 		</div>
@@ -103,7 +112,8 @@ export default Vue.extend({
 .settings {
 	&--brush {
 		color: currentColor;
-		padding: 0;
+		margin-top: 0.5em;
+		color: black;
 	}
 }
 .settings--brush {
@@ -117,43 +127,58 @@ export default Vue.extend({
 		height: 11em;
 		// writing-mode: bt-lr; /* IE */
 		padding: 0.5em;
+		&__label {
+			opacity: 1;
+		}
+		&__label_text {
+			opacity: 0.25;
+		}
 		&__value {
-			position: absolute;
-			top: 100%;
-			border: 1px solid red;
+			// position: absolute;
+			// top: 100%;
+			// border: 1px solid red;
 		}
 		label {
 			position: absolute;
-			right: 100%;
+			right: calc(100% + 0.5em);
 			writing-mode: vertical-lr;
+			padding: 0;
 		}
 		.input--range {
 			position: absolute;
 			top: 0;
 			left: 0;
 			width: 10em;
+			background-color: transparent;
 			// -webkit-appearance: slider-vertical; /* Does work, but not with styling :(  */
 			transform: translateY(-100%) rotate(90deg);
 			transform-origin: 0 100%;
 			&__opacity {
 				&::-webkit-slider-runnable-track {
-					background-color: none;
+					border: 2px solid black;
+					background-color: transparent;
 					background-image: linear-gradient(to left, black, transparent);
 					background-size: 110% 110%;
+				}
+				&::-webkit-slider-thumb {
+					box-shadow: 0 0 0.5em 0em black;
 				}
 			}
 			&__size {
 				&::-webkit-slider-runnable-track {
-					background-color: none;
-
+					border: 2px solid black;
+					background-color: transparent;
 					background-image: linear-gradient(
 						to left bottom,
-						black 50%,
-						transparent 50%
+						black 49%,
+						transparent 51%
 					);
 					background-size: 110% 110%;
 					transform: skewX(-50%);
 					transform-origin: 100% 100%;
+				}
+				&::-webkit-slider-thumb {
+					box-shadow: 0 0 0.5em 0em black;
 				}
 			}
 		}

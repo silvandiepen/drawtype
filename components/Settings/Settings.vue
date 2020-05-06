@@ -30,6 +30,7 @@ export default Vue.extend({
 		display: flex;
 		flex-direction: column;
 		border-radius: 0.5em;
+		transform: translateY(-50%);
 	}
 }
 .input-field {
@@ -38,8 +39,8 @@ export default Vue.extend({
 	flex-direction: row-reverse;
 
 	&__value {
-		position: absolute;
-		right: 0;
+		// position: absolute;
+		// right: 0;
 	}
 	&__input--range {
 		margin: 0;
