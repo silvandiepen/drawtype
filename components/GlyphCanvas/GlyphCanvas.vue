@@ -74,8 +74,10 @@ export default Vue.extend({
 	methods: {
 		setCanvasSize() {
 			if (this.canvas) {
-				this.canvas.setHeight(this.viewSize * 14.5);
-				this.canvas.setWidth(this.viewSize * 14.5);
+				this.canvas.setHeight(240);
+				this.canvas.setWidth(240);
+				// this.canvas.setHeight(this.viewSize * 14.5);
+				// this.canvas.setWidth(this.viewSize * 14.5);
 				this.canvas.renderAll();
 			}
 		},
@@ -128,23 +130,28 @@ export default Vue.extend({
 });
 </script>
 <style lang="scss">
-.lower-canvas {
-	z-index: 10;
-	mix-blend-mode: multiply;
-	pointer-events: none;
-}
+// .lower-canvas {
+// 	z-index: 10;
+// 	mix-blend-mode: multiply;
+// 	pointer-events: none;
+// }
 .glyph-canvas {
 	position: relative;
 	height: 100%;
+	background-color: white;
+	&,
+	canvas,
+	&__glyph {
+		width: 240px;
+		height: 240px;
+		line-height: 240px;
+	}
 	&__glyph {
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 100%;
-		height: 100%;
 		font-size: calc(var(--view-size) / 2);
 		// line-height: 1.75;
-		line-height: calc((var(--view-size) / 5) * 1em);
 		text-align: center;
 		opacity: var(--view-opacity);
 		pointer-events: none;

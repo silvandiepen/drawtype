@@ -91,13 +91,13 @@ export default {
 		padding: 2em !important;
 	}
 	&__item {
-		width: var(--view-size, 10em);
-		height: var(--view-size, 10em);
-		padding: calc(var(--view-size, 10em) / 20);
-		canvas {
-			border: 1px solid rgba(0, 0, 0, 0.25);
-			background-color: white;
-		}
+		// width: var(--view-size, 10em);
+		// height: var(--view-size, 10em);
+		padding: 1em;
+		// canvas {
+		// 	border: 1px solid rgba(0, 0, 0, 0.25);
+		// 	background-color: white;
+		// }
 	}
 }
 </style>
