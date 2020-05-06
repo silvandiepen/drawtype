@@ -112,8 +112,10 @@ export default Vue.extend({
 		flex-direction: column;
 	}
 	.input-field {
-		flex-direction: row-reverse;
-		writing-mode: bt-lr; /* IE */
+		width: 2em;
+		// flex-direction: row-reverse;
+		height: 11em;
+		// writing-mode: bt-lr; /* IE */
 		padding: 0.5em;
 		&__value {
 			position: absolute;
@@ -126,26 +128,30 @@ export default Vue.extend({
 			writing-mode: vertical-lr;
 		}
 		.input--range {
-			width: 2em;
-			border: 2px solid currentColor;
-
-			-webkit-appearance: slider-vertical; /* WebKit */
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 10em;
+			// -webkit-appearance: slider-vertical; /* Does work, but not with styling :(  */
+			transform: translateY(-100%) rotate(90deg);
+			transform-origin: 0 100%;
 			&__opacity {
-				&::-webkit-slider-thumb,
 				&::-webkit-slider-runnable-track {
 					background-color: none;
-					background-image: linear-gradient(to bottom, black, transparent);
+					background-image: linear-gradient(to left, black, transparent);
+					background-size: 110% 110%;
 				}
 			}
 			&__size {
-				&::-webkit-slider-thumb,
 				&::-webkit-slider-runnable-track {
 					background-color: none;
+
 					background-image: linear-gradient(
 						to left bottom,
 						black 50%,
 						transparent 50%
 					);
+					background-size: 110% 110%;
 					transform: skewX(-50%);
 					transform-origin: 100% 100%;
 				}

@@ -62,6 +62,19 @@ export default Vue.extend({
 	}
 	&__fields {
 		display: flex;
+		.input-field {
+			padding: 0.5em;
+			display: flex;
+			flex-direction: column;
+			label {
+				display: block;
+				font-weight: bold;
+				font-size: 0.75em;
+				text-transform: uppercase;
+				opacity: 0.25;
+				padding: 0.5em 0;
+			}
+		}
 	}
 }
 </style>

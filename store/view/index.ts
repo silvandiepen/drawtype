@@ -3,7 +3,7 @@ import { ViewStateType, SetViewArgType } from '@/types';
 
 export const state = (): ViewStateType => ({
 	size: 10,
-	opacity: '1'
+	opacity: '12'
 });
 
 export const mutations = {
@@ -15,6 +15,9 @@ export const mutations = {
 export const getters = {
 	getSize(state: ViewStateType): number {
 		return state.size;
+	},
+	getOpacity(state: ViewStateType): number {
+		return parseInt(state.opacity);
 	}
 };
 export const actions = {

@@ -7,6 +7,21 @@ export const state = (): GlyphsStateType => ({
 	characters: undefined
 });
 
+export const findByValue = (obj: any, key: string, value: string): any => {
+	let result;
+	for (const p in obj) {
+		if (obj[key] === value) {
+			return obj;
+		} else if (typeof obj[p] === 'object') {
+			result = findByValue(obj[p], key, value);
+			if (result) {
+				return result;
+			}
+		}
+	}
+	return result;
+};
+
 export const mutations = {
 	TOGGLE_CHARSET: (state: GlyphsStateType, value: string) => {
 		if (state.characters) {
@@ -21,7 +36,7 @@ export const mutations = {
 				data: charset.characters.map((char: string) => {
 					return {
 						glyph: char,
-						unicode: String.fromCharCode(parseInt(char, 16)),
+						unicode: char.charCodeAt(0),
 						data: undefined
 					};
 				})
@@ -45,6 +60,13 @@ export const getters = {
 	},
 	getTitle(state: GlyphsStateType): string {
 		return state.title;
+	},
+	getActive: (state: GlyphsStateType) => (unicode: string) => {
+		let char = null;
+		if (state.characters)
+			char = findByValue(state.characters, 'unicode', unicode);
+		console.log(char);
+		return char.active;
 	}
 };
 

@@ -1,48 +1,57 @@
 <template>
 	<div ref="glyphCanvasContainer" class="glyph-canvas">
 		<canvas
-			:id="`canvas-${charCode}`"
+			:id="`canvas-${glyph.unicode}`"
 			ref="glyphCanvas"
 			class="glyph-canvas__canvas"
 		></canvas>
-		<div class="glyph-canvas__glyph">{{ glyph }}</div>
+		<div class="glyph-canvas__glyph">{{ glyph.glyph }}</div>
 	</div>
 </template>
-<script>
+<script lang="ts">
 import Vue from 'vue';
 import { fabric } from 'fabric';
-import { PSBrush, PSStroke } from '@arch-inc/fabricjs-psbrush/dist';
-// import { ICanvasOptions } from 'fabric/fabric-impl';
-// import { BrushStateType } from '@/store/brush/types';
-// interface GlyphCanvasDataType {
-// 	brush: any;
-// 	canvas: any;
-// }
-// interface extraOptions extends ICanvasOptions {
-// 	width: number;
-// 	enablePointerEvents: boolean;
-// }
+import { ICanvasOptions, StaticCanvas } from 'fabric/fabric-impl';
+import { PSBrush, PSBrushIface } from '@arch-inc/fabricjs-psbrush/dist';
+import { BrushStateType } from '@/types';
+
+interface extendedICanvasOptions extends ICanvasOptions, StaticCanvas {
+	freeDrawingBrush: any;
+	setHeight: any;
+	setWidth: any;
+	renderAll: any;
+}
 export default Vue.extend({
 	props: {
 		glyph: {
-			type: String,
-			default: ''
+			type: Object,
+			default: () => {}
 		}
 	},
 	data: () => ({
-		brush: null,
-		canvas: null,
-		canvasContainer: null
+		brush: {} as PSBrushIface,
+		canvas: {} as extendedICanvasOptions,
+		canvasContainer: null as HTMLCanvasElement | null
 	}),
 	computed: {
-		brushSettings() {
+		brushSettings(): BrushStateType {
 			return this.$store.getters['brush/getBrush'];
 		},
-		charCode() {
-			return this.$props.glyph.charCodeAt(0);
-		},
-		viewSize() {
+		viewSize(): number {
 			return this.$store.state.view.size;
+		},
+		active: {
+			get(): boolean {
+				return this.$store.getters['glyphs/isActive'](
+					this.$props.glyph.unicode
+				);
+			}
+			// set(bool): void {
+			// 	this.$store.dispatch('glyphs/setActive', {
+			// 		unicode: this.$props,
+			// 		active: bool
+			// 	});
+			// }
 		}
 	},
 	watch: {
@@ -60,15 +69,15 @@ export default Vue.extend({
 		}
 	},
 	mounted() {
-		// setTimeout(() => {
 		this.initCanvas();
-		// }, 500);
 	},
 	methods: {
 		setCanvasSize() {
-			this.canvas.setHeight(this.viewSize * 14.5);
-			this.canvas.setWidth(this.viewSize * 14.5);
-			this.canvas.renderAll();
+			if (this.canvas) {
+				this.canvas.setHeight(this.viewSize * 14.5);
+				this.canvas.setWidth(this.viewSize * 14.5);
+				this.canvas.renderAll();
+			}
 		},
 		setBrushSettings() {
 			// console.log(this.brush);
@@ -85,32 +94,45 @@ export default Vue.extend({
 			}
 		},
 		initCanvas() {
-			this.canvasContainer = document.querySelector('#canvas-' + this.charCode);
-
-			this.canvas = new fabric.Canvas(this.canvasContainer, {
-				isDrawingMode: true,
-				enablePointerEvents: true
-			});
-			this.setCanvasSize();
-			this.setBrush();
+			if (this.$props.glyph && this.$props.glyph.unicode) {
+				this.canvasContainer = document.querySelector(
+					'#canvas-' + this.$props.glyph.unicode
+				);
+				if (this.canvasContainer) {
+					this.canvas = new fabric.Canvas(this.canvasContainer, {
+						isDrawingMode: true
+					});
+					this.setCanvasSize();
+					this.setBrush();
+				}
+			}
 		},
 		setBrush() {
-			this.brush = new PSBrush(this.canvas, {});
-			this.brush.width = this.brushSettings.size;
-			this.brush.color = '#000000';
-			this.brush.opacity = 0.5;
-			this.canvas.freeDrawingBrush = this.brush;
-		},
-		setStroke() {
-			this.brush = new PSStroke(this.canvas, {});
-			this.brush.width = this.brushSettings.size;
-			this.brush.color = '#000000';
-			this.canvas.freeDrawingBrush = this.brush;
+			if (this.canvas) this.brush = new PSBrush(this.canvas);
+			if (this.brush) {
+				this.brush.width = parseInt(this.brushSettings.size);
+				this.brush.color = '#000000';
+				this.brush.opacity = 0.5;
+				this.canvas.freeDrawingBrush = this.brush;
+			}
 		}
+		// setStroke() {
+		// 	if (this.canvas !== null) {
+		// 		this.brush = new PSStroke(this.canvas, {});
+		// 		this.brush.width = this.brushSettings.size;
+		// 		this.brush.color = '#000000';
+		// 		this.canvas.freeDrawingBrush = this.brush;
+		// 	}
+		// }
 	}
 });
 </script>
 <style lang="scss">
+.lower-canvas {
+	z-index: 10;
+	mix-blend-mode: multiply;
+	pointer-events: none;
+}
 .glyph-canvas {
 	position: relative;
 	height: 100%;
