@@ -1,7 +1,7 @@
 <template>
 	<div class="heading row">
 		<div class="small-half medium-third"></div>
-		<div class="small-half medium-third">
+		<div class="hide-for-small-only medium-third">
 			<input
 				v-model="fontTitle"
 				placeholder="Your font title"
