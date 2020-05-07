@@ -18,6 +18,7 @@
 						class="input-field__input input-field__input--text input--text"
 						type="text"
 					/>
+
 					<label class="input-field__label">Title</label>
 				</div>
 				<div class="input-field input-field--text">
@@ -26,12 +27,32 @@
 						placeholder="ex. Regular, Bold, Condensed, etc.."
 						class="input-field__input input-field__input--text input--text"
 						type="text"
+						list="variationSuggestion"
 					/>
 					<label class="input-field__label">Variation</label>
+					<datalist id="variationSuggestion">
+						<option>Light</option>
+						<option>Regular</option>
+						<option>Bold</option>
+					</datalist>
 				</div>
-				<h4>Choose your characters</h4>
+				<div class="input-field input-field--text">
+					<input
+						v-model="fontStyle"
+						placeholder="ex. Normal, Italic, etc.."
+						class="input-field__input input-field__input--text input--text"
+						type="text"
+						list="styleSuggestions"
+					/>
+					<label class="input-field__label">Style</label>
+					<datalist id="styleSuggestions">
+						<option>Normal</option>
+						<option>Italic</option>
+					</datalist>
+				</div>
 			</form>
 			<div class="font-settings__sets">
+				<h4 class="options__section-title">Choose your characters</h4>
 				<ul class="options__list">
 					<li
 						v-for="(list, idx) in charSets"
@@ -91,6 +112,15 @@ export default Vue.extend({
 			}
 		},
 
+		fontStyle: {
+			get(): string {
+				return this.$store.getters['glyphs/getSettings'].style;
+			},
+			set(value: string): void {
+				this.$store.dispatch('glyphs/setStyle', value);
+			}
+		},
+
 		charSets(): GlyphSetType[] {
 			return this.$store.getters['glyphs/getCharacterSets'];
 		}
@@ -133,11 +163,15 @@ export default Vue.extend({
 	}
 	&__content {
 		padding: grid(1);
+		@include max-(padding, 1, 40);
+		@include min-(padding, 1, 20);
 	}
 	&__form {
 		display: block;
 		border-radius: $base-border-radius;
 		padding: grid(1);
+		@include max-(padding, 1, 40);
+		@include min-(padding, 1, 20);
 		@include soft();
 	}
 	&__sets {
@@ -171,7 +205,15 @@ export default Vue.extend({
 .options {
 	padding: 1em;
 	width: 100%;
-
+	&__section-title {
+		padding: grid(0.5 1);
+		@include max-(1, 40) {
+			padding: 20px 40px;
+		}
+		@include min-(1, 20) {
+			padding: 20px 20px;
+		}
+	}
 	&__list {
 		display: flex;
 		max-height: 50vh;

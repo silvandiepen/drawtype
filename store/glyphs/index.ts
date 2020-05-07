@@ -10,7 +10,8 @@ import { Characters } from '~/assets/characters.ts';
 export const state = (): GlyphStateType => ({
 	settings: {
 		title: '',
-		variation: ''
+		variation: '',
+		style: ''
 	},
 	characters: []
 });
@@ -53,12 +54,6 @@ export const mutations = {
 
 		state.characters = charsets;
 	},
-	SET_TITLE: (state: GlyphStateType, value: string) => {
-		state.settings.title = value;
-	},
-	SET_VARIATION: (state: GlyphStateType, value: string) => {
-		state.settings.variation = value;
-	},
 	SET_GLYPH_DATA: (state: GlyphStateType, data: SetGlyphOpts) => {
 		const glyphSet = state.characters.find((set) => set.id === data.set);
 		let char = null;
@@ -67,6 +62,15 @@ export const mutations = {
 				(character: GlyphDataType) => character.unicode === data.unicode
 			)[0];
 		if (char) Vue.set(char, 'data', data.data);
+	},
+	SET_TITLE: (state: GlyphStateType, value: string) => {
+		state.settings.title = value;
+	},
+	SET_VARIATION: (state: GlyphStateType, value: string) => {
+		state.settings.variation = value;
+	},
+	SET_STYLE: (state: GlyphStateType, value: string) => {
+		state.settings.style = value;
 	}
 };
 
@@ -127,6 +131,9 @@ export const actions = {
 	},
 	setVariation({ commit }: any, value: string) {
 		commit('SET_VARIATION', value);
+	},
+	setStyle({ commit }: any, value: string) {
+		commit('SET_STYLE', value);
 	},
 	setGlyphData({ commit }: any, data: SetGlyphOpts) {
 		commit('SET_GLYPH_DATA', data);
