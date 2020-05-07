@@ -10,6 +10,9 @@
 	>
 		<div class="glyph-canvas__shadow"></div>
 		<div class="glyph-canvas__container">
+			<div class="glyph-canvas__tools">
+				<button @click="cleanCanvas">clean</button>
+			</div>
 			<canvas
 				:id="`canvas-${glyph.unicode}`"
 				ref="glyphCanvas"
@@ -103,6 +106,9 @@ export default Vue.extend({
 		});
 	},
 	methods: {
+		cleanCanvas() {
+			this.canvas.clear();
+		},
 		setActive() {
 			this.$store.dispatch('ui/setActiveGlyph', this.glyph.unicode);
 		},
@@ -201,6 +207,9 @@ export default Vue.extend({
 		.glyph-canvas__shadow {
 			@include shadow();
 		}
+		.glyph-canvas__tools {
+			display: block;
+		}
 	}
 	&,
 	canvas,
@@ -224,6 +233,28 @@ export default Vue.extend({
 		text-align: center;
 		opacity: var(--view-opacity);
 		pointer-events: none;
+	}
+	&__tools {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		display: flex;
+		display: none;
+		height: auto;
+		color: white;
+		line-height: 1;
+		padding: 0.25em 0.5em;
+		button {
+			border: none;
+			border-radius: $base-border-radius;
+			background-color: transparent;
+			background-color: $color-dark;
+			color: currentColor;
+			padding: 0.5em;
+			&:focus {
+				outline: none;
+			}
+		}
 	}
 }
 </style>
