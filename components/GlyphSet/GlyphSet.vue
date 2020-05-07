@@ -25,7 +25,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { GlyphCanvas } from '@/components';
-import { GlyphSetType } from '@/types';
+import { GlyphSetType, GlyphDataType } from '@/types';
 
 export default Vue.extend({
 	components: {
@@ -38,13 +38,15 @@ export default Vue.extend({
 		}
 	},
 	computed: {
-		glyphSet() {
+		glyphSet(): GlyphSetType | undefined {
 			return this.$store.getters['glyphs/getGlyphSet'](this.$props.set);
 		},
-		haveData() {
-			return this.glyphSet.data.filter(
-				(set: GlyphSetType) => set.data !== undefined
-			).length;
+		haveData(): number {
+			if (this.glyphSet && this.glyphSet.data)
+				return this.glyphSet.data.filter(
+					(set: GlyphDataType) => set.data !== undefined
+				).length;
+			else return 0;
 		}
 	}
 });
@@ -66,11 +68,13 @@ export default Vue.extend({
 		}
 	}
 	&__example {
+		position: sticky;
+		top: 0;
+		z-index: 1;
 		display: flex;
 		justify-content: center;
-		background-color: black;
-
-		color: white;
+		background-color: white;
+		color: black;
 		&-glyph {
 			svg {
 				width: 3em;
