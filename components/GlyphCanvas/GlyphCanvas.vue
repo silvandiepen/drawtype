@@ -24,7 +24,7 @@ import Vue from 'vue';
 import { fabric } from 'fabric';
 import { ICanvasOptions, StaticCanvas } from 'fabric/fabric-impl';
 import { PSBrush, PSBrushIface } from '@arch-inc/fabricjs-psbrush/dist';
-import { BrushStateType, CharacterData } from '@/types';
+import { BrushStateType, GlyphDataType } from '@/types';
 
 interface extendedICanvasOptions extends ICanvasOptions, StaticCanvas {
 	freeDrawingBrush: any;
@@ -50,7 +50,7 @@ export default Vue.extend({
 	}),
 	computed: {
 		glyph: {
-			get(): CharacterData {
+			get(): GlyphDataType {
 				return this.$store.getters['glyphs/getGlyph']({
 					set: this.$props.set,
 					unicode: this.$props.code

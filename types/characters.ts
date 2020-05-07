@@ -1,13 +1,13 @@
-export interface CharacterData {
+export interface GlyphDataType {
 	data: string | undefined;
 	unicode: string | number;
 	glyph: string;
 }
-export interface CharactersType {
+export interface GlyphSetType {
 	name: string;
 	title: string;
 	active?: boolean;
-	data?: CharacterData[];
+	data?: GlyphDataType[];
 	characters: Array<string>;
 	id: string;
 }

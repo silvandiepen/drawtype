@@ -62,7 +62,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { CharactersType } from '@/types';
+import { GlyphSetType } from '@/types';
 export default Vue.extend({
 	computed: {
 		isActive: {
@@ -91,7 +91,7 @@ export default Vue.extend({
 			}
 		},
 
-		charSets(): CharactersType[] {
+		charSets(): GlyphSetType[] {
 			return this.$store.getters['glyphs/getCharacterSets'];
 		}
 	},

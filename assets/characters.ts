@@ -1,6 +1,6 @@
 /* prettier-ignore */
-import { CharactersType} from '@/types'
-export const Characters: CharactersType[] = [
+import { GlyphSetType} from '@/types'
+export const Characters: GlyphSetType[] = [
 	{
 		id: '0-9',
 		name: 'numeral',

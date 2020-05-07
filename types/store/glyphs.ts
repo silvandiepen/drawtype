@@ -1,10 +1,10 @@
-import { CharactersType } from '@/types';
-export interface GlyphsSettingsType {
+import { GlyphSetType } from '@/types';
+export interface GlyphSettingsType {
 	title: string;
 	variation: string;
 }
 
-export type GlyphsStateType = {
-	characters: CharactersType[];
-	settings: GlyphsSettingsType;
+export type GlyphStateType = {
+	characters: GlyphSetType[];
+	settings: GlyphSettingsType;
 };
