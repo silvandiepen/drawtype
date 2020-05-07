@@ -153,8 +153,8 @@ export default Vue.extend({
 			if (this.canvas) this.brush = new PSBrush(this.canvas);
 			if (this.brush) {
 				this.brush.width = this.brushSettings.size;
-				this.brush.color = '#000000';
-				this.brush.opacity = 0.5;
+				this.brush.color = this.brushSettings.color;
+				this.brush.opacity = this.brushSettings.opacity / 100;
 				this.canvas.freeDrawingBrush = this.brush;
 			}
 		}
