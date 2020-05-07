@@ -1,8 +1,10 @@
 .button {
 	display: inline-block;
+	border: none;
 	border-radius: $base-border-radius;
 	background-color: $color-primary;
-	padding: 1em;
 	color: contra($color-primary);
+	font-size: 1em;
 	text-decoration: none;
+	padding: 1em;
 }

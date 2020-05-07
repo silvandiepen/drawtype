@@ -6,5 +6,6 @@ export interface MenuType {
 export interface UIStateType {
 	colorMode: UIColorModes;
 	menu: MenuType;
+	activeSettings: boolean;
 	currentActiveGlyph: string;
 }

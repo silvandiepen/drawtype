@@ -13,7 +13,7 @@
 					:key="idx"
 					class="glyphs__item"
 				>
-					<GlyphCanvas v-model="glyph.data" :glyph="glyph" />
+					<GlyphCanvas :code="glyph.unicode" :set="glyphset.id" />
 				</li>
 			</ul>
 		</div>
@@ -89,7 +89,7 @@ export default {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		background-color: rgba(240, 250, 255);
+		@include soft();
 		overflow: hidden;
 		margin: 0 !important;
 		padding: 2em !important;

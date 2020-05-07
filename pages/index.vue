@@ -1,18 +1,32 @@
 <template>
 	<main class="page page--home">
 		<Logo />
-		<NuxtLink class="button" to="/draw">Start Your Font</NuxtLink>
+		<button class="button" @click="openDialog">
+			Start Your Font
+		</button>
+		<FontSettings />
 	</main>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { FontSettings } from '@/components';
 import Logo from '@/components/Logo.vue';
+
 export default Vue.extend({
 	components: {
-		Logo
+		Logo,
+		FontSettings
 	},
-	layout: 'home'
+	layout: 'home',
+	created() {
+		this.$store.dispatch('glyphs/setCharacterSets');
+	},
+	methods: {
+		openDialog() {
+			this.$store.dispatch('ui/setActiveSettings', true);
+		}
+	}
 });
 </script>
 

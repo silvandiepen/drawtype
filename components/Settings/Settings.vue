@@ -33,23 +33,4 @@ export default Vue.extend({
 		transform: translateY(-50%);
 	}
 }
-.input-field {
-	position: relative;
-	display: flex;
-	flex-direction: row-reverse;
-
-	&__value {
-		// position: absolute;
-		// right: 0;
-	}
-	&__input--range {
-		margin: 0;
-	}
-	&__input--color {
-		width: 2em;
-		height: 2em;
-		border-radius: 50%;
-		-webkit-appearance: none;
-	}
-}
 </style>

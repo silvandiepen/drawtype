@@ -1,0 +1,23 @@
+@mixin shadow {
+	position: absolute;
+	top: 55%;
+	left: 50%;
+	z-index: 1;
+	width: 90%;
+	height: 90%;
+	background-color: $color-shadow;
+	background-image: linear-gradient(
+		to right bottom,
+		$color-shadow-1,
+		$color-shadow-2
+	);
+	transform: translate(-50%, -50%);
+	filter: blur(20px);
+}
+@mixin soft {
+	background-image: linear-gradient(
+		to right bottom,
+		$color-soft-1,
+		$color-soft-2
+	);
+}

@@ -1,4 +1,4 @@
-interface CharacterData {
+export interface CharacterData {
 	data: string | undefined;
 	unicode: string | number;
 	glyph: string;

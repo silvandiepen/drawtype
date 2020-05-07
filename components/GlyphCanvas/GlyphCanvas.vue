@@ -2,15 +2,21 @@
 	<div
 		ref="glyphCanvasContainer"
 		class="glyph-canvas"
-		:class="{ 'glyph-canvas--active': isActive }"
+		:class="{
+			'glyph-canvas--active': isActive,
+			'glyph-canvas--dirty': glyph.data
+		}"
 		@click="setActive"
 	>
-		<canvas
-			:id="`canvas-${glyph.unicode}`"
-			ref="glyphCanvas"
-			class="glyph-canvas__canvas"
-		></canvas>
-		<div class="glyph-canvas__glyph">{{ glyph.glyph }}</div>
+		<div class="glyph-canvas__shadow"></div>
+		<div class="glyph-canvas__container">
+			<canvas
+				:id="`canvas-${glyph.unicode}`"
+				ref="glyphCanvas"
+				class="glyph-canvas__canvas"
+			></canvas>
+			<div class="glyph-canvas__glyph">{{ glyph.glyph }}</div>
+		</div>
 	</div>
 </template>
 <script lang="ts">
@@ -18,7 +24,7 @@ import Vue from 'vue';
 import { fabric } from 'fabric';
 import { ICanvasOptions, StaticCanvas } from 'fabric/fabric-impl';
 import { PSBrush, PSBrushIface } from '@arch-inc/fabricjs-psbrush/dist';
-import { BrushStateType } from '@/types';
+import { BrushStateType, CharacterData } from '@/types';
 
 interface extendedICanvasOptions extends ICanvasOptions, StaticCanvas {
 	freeDrawingBrush: any;
@@ -28,9 +34,13 @@ interface extendedICanvasOptions extends ICanvasOptions, StaticCanvas {
 }
 export default Vue.extend({
 	props: {
-		glyph: {
-			type: Object,
-			default: () => {}
+		code: {
+			type: Number,
+			default: 0
+		},
+		set: {
+			type: String,
+			default: ''
 		}
 	},
 	data: () => ({
@@ -39,6 +49,14 @@ export default Vue.extend({
 		canvasContainer: null as HTMLCanvasElement | null
 	}),
 	computed: {
+		glyph: {
+			get(): CharacterData {
+				return this.$store.getters['glyphs/getGlyph']({
+					set: this.$props.set,
+					unicode: this.$props.code
+				});
+			}
+		},
 		brushSettings(): BrushStateType {
 			return this.$store.getters['brush/getBrush'];
 		},
@@ -47,9 +65,9 @@ export default Vue.extend({
 		},
 		isActive: {
 			get(): boolean {
-				return (
-					this.$store.state.ui.currentActiveGlyph === this.$props.glyph.unicode
-				);
+				if (this.glyph && this.glyph.unicode)
+					return this.$store.state.ui.currentActiveGlyph === this.glyph.unicode;
+				else return false;
 			}
 		}
 	},
@@ -80,16 +98,20 @@ export default Vue.extend({
 		this.initCanvas();
 
 		this.canvas.on('object:added', () => {
-			// console.log('haaaiii', e);
+			this.setGlyphData();
+			// this.glyph.data = this.canvas.toSVG();
 		});
-		// if (this.canvas) console.log(this.canvas);
-		// document.addEventListener('after:render', () => {
-		// 	console.log('this one rendered');
-		// });
 	},
 	methods: {
 		setActive() {
-			this.$store.dispatch('ui/setActiveGlyph', this.$props.glyph.unicode);
+			this.$store.dispatch('ui/setActiveGlyph', this.glyph.unicode);
+		},
+		setGlyphData() {
+			this.$store.dispatch('glyphs/setGlyphData', {
+				set: this.$props.set,
+				unicode: this.glyph.unicode,
+				data: this.canvas.toSVG()
+			});
 		},
 		setCanvasSize() {
 			if (this.canvas) {
@@ -116,9 +138,9 @@ export default Vue.extend({
 			}
 		},
 		initCanvas() {
-			if (this.$props.glyph && this.$props.glyph.unicode) {
+			if (this.glyph) {
 				this.canvasContainer = document.querySelector(
-					'#canvas-' + this.$props.glyph.unicode
+					'#canvas-' + this.glyph.unicode
 				);
 				if (this.canvasContainer) {
 					this.canvas = new fabric.Canvas(this.canvasContainer, {});
@@ -153,14 +175,25 @@ export default Vue.extend({
 .glyph-canvas {
 	position: relative;
 	height: 100%;
-	background-color: white;
 	canvas {
 		pointer-events: none;
 	}
+	&__container {
+		position: relative;
+		z-index: 1;
+		border-radius: $base-border-radius-l;
+		background-color: white;
+	}
+
+	&__shadow {
+		z-index: -1;
+	}
 	&--active {
-		box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.15);
 		canvas {
 			pointer-events: all;
+		}
+		.glyph-canvas__shadow {
+			@include shadow();
 		}
 	}
 	&,
@@ -168,6 +201,7 @@ export default Vue.extend({
 	&__glyph {
 		width: 240px;
 		height: 240px;
+		border-radius: $base-border-radius-l;
 		line-height: 240px;
 		@media #{$small-only} {
 			width: 320px;

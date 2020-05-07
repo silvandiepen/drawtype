@@ -6,13 +6,19 @@
 // Add custom project colors
 @import '~assets/scss/color/index';
 
+// Mixins for this project
+@import 'mixins';
+
 // Define settings particular to project
 
 // Define font variables
 // $primary-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 // Override $base values:
-// $base-border-radius: 3px;
+$base-border-radius: 0.25em;
+$base-border-radius-l: $base-border-radius * 2;
+$base-border-radius-xl: $base-border-radius-l * 2;
+
 // $base-transition-time: 0.3;
 // $base-transition: #{$base-transition-time}s;
 // $base-cubic-bezier: ease-in-out;

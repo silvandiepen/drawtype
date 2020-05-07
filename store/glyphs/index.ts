@@ -1,10 +1,18 @@
 import Vue from 'vue';
-import { GlyphsStateType, CharactersType } from '@/types';
+import {
+	GlyphsStateType,
+	CharactersType,
+	GlyphsSettingsType,
+	CharacterData
+} from '@/types';
 import { Characters } from '~/assets/characters.ts';
 
 export const state = (): GlyphsStateType => ({
-	title: '',
-	characters: undefined
+	settings: {
+		title: '',
+		variation: ''
+	},
+	characters: []
 });
 
 export const findByValue = (obj: any, key: string, value: string): any => {
@@ -46,38 +54,73 @@ export const mutations = {
 		state.characters = charsets;
 	},
 	SET_TITLE: (state: GlyphsStateType, value: string) => {
-		state.title = value;
+		state.settings.title = value;
+	},
+	SET_VARIATION: (state: GlyphsStateType, value: string) => {
+		state.settings.variation = value;
+	},
+	SET_GLYPH_DATA: (state: GlyphsStateType, data: SetGlyphOpts) => {
+		const glyphSet = state.characters.find((set) => set.id === data.set);
+		let char = null;
+		if (glyphSet?.data?.length)
+			char = glyphSet.data.filter(
+				(character: CharacterData) => character.unicode === data.unicode
+			)[0];
+		if (char) Vue.set(char, 'data', data.data);
 	}
 };
 
+interface GetGlyphOpts {
+	set: string;
+	unicode: number;
+}
+interface SetGlyphOpts extends GetGlyphOpts {
+	data: string;
+}
 export const getters = {
-	getCharacterSets(state: GlyphsStateType): CharactersType[] | undefined {
-		if (state.characters) return state.characters;
+	getGlyph: (state: GlyphsStateType) => (
+		data: GetGlyphOpts
+	): CharacterData | null => {
+		const glyphSet = state.characters.find((set) => set.id === data.set);
+		let char = null;
+		if (glyphSet?.data?.length)
+			char = glyphSet.data.filter(
+				(character: CharacterData) => character.unicode === data.unicode
+			)[0];
+
+		return char;
+
+		// return state.characters[0];
 	},
-	getActiveCharacterSets(state: GlyphsStateType): CharactersType[] | undefined {
-		if (state.characters)
-			return state.characters.filter((set) => set.active === true);
+	getCharacterSets(state: GlyphsStateType): CharactersType[] | null {
+		return state.characters;
 	},
-	getTitle(state: GlyphsStateType): string {
-		return state.title;
+	getActiveCharacterSets(state: GlyphsStateType): CharactersType[] | null {
+		return state.characters.filter((set) => set.active === true);
+	},
+	getSettings(state: GlyphsStateType): GlyphsSettingsType {
+		return state.settings;
 	},
 	getActive: (state: GlyphsStateType) => (unicode: string) => {
-		let char = null;
-		if (state.characters)
-			char = findByValue(state.characters, 'unicode', unicode);
-		console.log(char);
+		const char = findByValue(state.characters, 'unicode', unicode);
 		return char.active;
 	}
 };
 
 export const actions = {
-	setCharacterSets({ commit }: any) {
-		commit('SET_CHARACTERSETS', Characters);
+	setCharacterSets({ commit, state }: any) {
+		if (state.characters.length < 1) commit('SET_CHARACTERSETS', Characters);
 	},
 	toggleCharset({ commit }: any, name: string) {
 		commit('TOGGLE_CHARSET', name);
 	},
 	setTitle({ commit }: any, value: string) {
 		commit('SET_TITLE', value);
+	},
+	setVariation({ commit }: any, value: string) {
+		commit('SET_VARIATION', value);
+	},
+	setGlyphData({ commit }: any, data: SetGlyphOpts) {
+		commit('SET_GLYPH_DATA', data);
 	}
 };

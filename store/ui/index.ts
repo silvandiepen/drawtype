@@ -6,8 +6,15 @@ export const state = (): UIStateType => ({
 	menu: {
 		active: false
 	},
-	currentActiveGlyph: ''
+	currentActiveGlyph: '',
+	activeSettings: false
 });
+
+export const getters = {
+	isSettingsActive: (state: UIStateType): boolean => {
+		return state.activeSettings;
+	}
+};
 
 export const mutations = {
 	SET_COLOR_MODE(state: UIStateType, value: UIColorModes) {
@@ -22,6 +29,9 @@ export const mutations = {
 	},
 	SET_ACTIVE_GLYPH(state: UIStateType, value: string) {
 		state.currentActiveGlyph = value;
+	},
+	SET_ACTIVE_SETTINGS(state: UIStateType, value: boolean) {
+		state.activeSettings = value;
 	}
 };
 
@@ -46,5 +56,11 @@ export const actions = {
 	},
 	setActiveGlyph({ commit }: any, value: string) {
 		commit('SET_ACTIVE_GLYPH', value);
+	},
+	setActiveSettings({ commit }: any, value: boolean) {
+		commit('SET_ACTIVE_SETTINGS', value);
+	},
+	toggleActiveSettings({ commit, state }: any) {
+		commit('SET_ACTIVE_SETTINGS', !state.activeSetting);
 	}
 };

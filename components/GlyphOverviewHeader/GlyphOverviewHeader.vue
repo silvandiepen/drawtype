@@ -23,7 +23,7 @@ export default Vue.extend({
 	computed: {
 		fontTitle: {
 			get(): string {
-				return this.$store.getters['glyphs/getTitle'];
+				return this.$store.getters['glyphs/getSettings'].title;
 			},
 			set(value: string): void {
 				this.$store.dispatch('glyphs/setTitle', value);
