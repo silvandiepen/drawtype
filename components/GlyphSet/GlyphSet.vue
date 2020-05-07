@@ -5,15 +5,16 @@
 			<span class="glyphs__done">
 				{{ haveData }}/ {{ glyphSet.data.length }}</span
 			>
+			<ul class="glyphs__example">
+				<li
+					v-for="(glyph, idx) in glyphSet.data"
+					:key="idx"
+					class="glyphs__example-glyph"
+					v-html="glyph.data"
+				></li>
+			</ul>
 		</div>
-		<ul class="glyphs__example">
-			<li
-				v-for="(glyph, idx) in glyphSet.data"
-				:key="idx"
-				class="glyphs__example-glyph"
-				v-html="glyph.data"
-			></li>
-		</ul>
+
 		<ul class="glyphs__list">
 			<li v-for="(glyph, idx) in glyphSet.data" :key="idx" class="glyphs__item">
 				<GlyphCanvas :code="glyph.unicode" :set="glyphSet.id" />

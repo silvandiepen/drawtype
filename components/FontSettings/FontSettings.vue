@@ -100,8 +100,9 @@ export default Vue.extend({
 			this.$store.dispatch('glyphs/toggleCharset', name);
 		},
 		saveSettings() {
-			this.isActive = false;
+			this.$store.dispatch('ui/setLoading', true);
 			this.$router.push({ path: 'draw' });
+			this.isActive = false;
 		}
 	}
 });
@@ -113,12 +114,13 @@ export default Vue.extend({
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	z-index: 1;
+	z-index: 10;
 	display: block;
-
-	width: 100%;
+	width: 80%;
 	max-width: 640px;
 	transform: translate(-50%, -50%) scale(0);
+
+	transition: transform 0.5s ease-in-out;
 
 	&--active {
 		transform: translate(-50%, -50%) scale(1);
@@ -138,10 +140,12 @@ export default Vue.extend({
 	&__container {
 		position: relative;
 		z-index: 2;
-
+		max-height: 75vh;
 		box-shadow: 0 0.25em 0 0 color(PinkLight);
 		border-radius: $base-border-radius-xl;
 		background-color: white;
+
+		overflow: scroll;
 		> *:last-child {
 			border-radius: 0 0 $base-border-radius-xl $base-border-radius-xl;
 		}

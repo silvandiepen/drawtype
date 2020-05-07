@@ -14,6 +14,11 @@ export default {
 	},
 	created() {
 		this.$store.dispatch('glyphs/setCharacterSets');
+	},
+	mounted() {
+		setTimeout(() => {
+			this.$store.dispatch('ui/setLoading', false);
+		}, 500);
 	}
 };
 </script>

@@ -8,4 +8,5 @@ export interface UIStateType {
 	menu: MenuType;
 	activeSettings: boolean;
 	currentActiveGlyph: string;
+	loading: boolean;
 }

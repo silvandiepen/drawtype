@@ -6,6 +6,7 @@ export const state = (): UIStateType => ({
 	menu: {
 		active: false
 	},
+	loading: false,
 	currentActiveGlyph: '',
 	activeSettings: false
 });
@@ -32,6 +33,9 @@ export const mutations = {
 	},
 	SET_ACTIVE_SETTINGS(state: UIStateType, value: boolean) {
 		state.activeSettings = value;
+	},
+	SET_LOADING(state: UIStateType, value: boolean) {
+		state.loading = value;
 	}
 };
 
@@ -46,7 +50,10 @@ export const actions = {
 		commit('TOGGLE_COLOR_MODE');
 	},
 	setMode({ commit }: any, value: UIColorModes) {
-		commit('setMode', value);
+		commit('SET_COLOR_MODE', value);
+	},
+	setLoading({ commit }: any, value: boolean) {
+		commit('SET_LOADING', value);
 	},
 	setMenuActive({ commit }: any, value: boolean) {
 		commit('SET_MENU_ACTIVE', value);
