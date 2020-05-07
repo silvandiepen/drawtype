@@ -148,11 +148,15 @@ export default Vue.extend({
 	display: block;
 	width: calc(100% - 4em);
 	max-width: 640px;
-	transform: translate(-50%, -50%) scale(0);
-	transition: transform 0.5s ease-in-out;
+	transform: translate(-50%, -50%) scale(0.5);
+	opacity: 0;
+	transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
+	pointer-events: none;
 
 	&--active {
 		transform: translate(-50%, -50%) scale(1);
+		opacity: 1;
+		pointer-events: all;
 	}
 	@media #{$small-only} {
 		top: 2em;
