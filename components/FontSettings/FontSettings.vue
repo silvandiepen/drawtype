@@ -116,14 +116,20 @@ export default Vue.extend({
 	left: 50%;
 	z-index: 10;
 	display: block;
-	width: 80%;
+	width: calc(100% - 4em);
 	max-width: 640px;
 	transform: translate(-50%, -50%) scale(0);
-
 	transition: transform 0.5s ease-in-out;
 
 	&--active {
 		transform: translate(-50%, -50%) scale(1);
+	}
+	@media #{$small-only} {
+		top: 2em;
+		transform: translateX(-50%) scale(0);
+		&--active {
+			transform: translateX(-50%) scale(1);
+		}
 	}
 	&__content {
 		padding: grid(1);
@@ -140,7 +146,7 @@ export default Vue.extend({
 	&__container {
 		position: relative;
 		z-index: 2;
-		max-height: 75vh;
+		max-height: calc(100vh - 8em);
 		box-shadow: 0 0.25em 0 0 color(PinkLight);
 		border-radius: $base-border-radius-xl;
 		background-color: white;
