@@ -21,16 +21,19 @@
 	position: relative;
 	display: flex;
 
-	&--inline {
-		flex-direction: row-reverse;
-		justify-content: flex-start;
-	}
 	&,
 	&--stack {
 		flex-direction: column-reverse;
 		justify-content: flex-start;
 	}
 
+	&--inline {
+		flex-direction: row-reverse;
+		justify-content: flex-start;
+		.input-field__label {
+			width: auto;
+		}
+	}
 	&__label {
 		flex-shrink: 1;
 		width: 100%;

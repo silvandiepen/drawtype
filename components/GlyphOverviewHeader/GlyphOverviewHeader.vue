@@ -47,7 +47,6 @@ export default Vue.extend({
 	z-index: 5;
 	display: flex;
 	justify-content: space-between;
-	padding: 1em;
 	> div {
 		width: 33.33%;
 	}

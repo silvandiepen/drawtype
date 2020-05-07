@@ -14,4 +14,9 @@ $color-soft: mix($color-secondary, white, 15%);
 $color-soft-primary: mix($color-primary, white, 15%);
 $color-soft-1: $color-soft;
 $color-soft-2: mix($color-secondary, white, 25%);
+
+$color-darksoft: mix($color-secondary, black, 15%);
+$color-darksoft-1: $color-darksoft;
+$color-darksoft-2: mix($color-secondary, black, 25%);
+
 @import '../typography/style';

@@ -175,6 +175,9 @@ export default Vue.extend({
 .glyph-canvas {
 	position: relative;
 	height: 100%;
+	.dark & {
+		color: white;
+	}
 	canvas {
 		pointer-events: none;
 	}
@@ -183,6 +186,9 @@ export default Vue.extend({
 		z-index: 1;
 		border-radius: $base-border-radius-l;
 		background-color: white;
+		.dark & {
+			background-color: $color-dark;
+		}
 	}
 
 	&__shadow {

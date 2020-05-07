@@ -2,15 +2,17 @@
 	<main class="page-draw">
 		<GlyphOverviewHeader />
 		<GlyphOverview />
+		<FontSettings />
 	</main>
 </template>
 <script>
-import { GlyphOverview, GlyphOverviewHeader } from '@/components';
+import { GlyphOverview, GlyphOverviewHeader, FontSettings } from '@/components';
 
 export default {
 	components: {
 		GlyphOverviewHeader,
-		GlyphOverview
+		GlyphOverview,
+		FontSettings
 	},
 	created() {
 		this.$store.dispatch('glyphs/setCharacterSets');

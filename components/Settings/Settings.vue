@@ -2,6 +2,9 @@
 	<div class="settings">
 		<BrushSettings class="settings__brush" />
 		<ViewSettings class="settings__view" />
+		<button class="settings__trigger" @click="triggerSettings">
+			Settings
+		</button>
 	</div>
 </template>
 
@@ -14,14 +17,23 @@ export default Vue.extend({
 	components: {
 		BrushSettings: Brush,
 		ViewSettings: View
+	},
+	methods: {
+		triggerSettings() {
+			console.log('haaai');
+			this.$store.dispatch('ui/setActiveSettings', true);
+		}
 	}
 });
 </script>
 
 <style lang="scss">
 .settings {
-	// z-index: 10;
-	// border: 1px solid red;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: flex-end;
+	margin: 0;
 	&__brush {
 		position: fixed;
 		top: 50%;
@@ -31,6 +43,17 @@ export default Vue.extend({
 		flex-direction: column;
 		border-radius: 0.5em;
 		transform: translateY(-50%);
+	}
+	&__view {
+		// border: 1px solid red;
+	}
+	&__trigger {
+		border: none;
+		background-color: transparent;
+		font-weight: bold;
+		font-size: 0.75em;
+		padding: 0 1em;
+		// border: 1px solid red;
 	}
 }
 </style>

@@ -14,6 +14,9 @@ export const state = (): UIStateType => ({
 export const getters = {
 	isSettingsActive: (state: UIStateType): boolean => {
 		return state.activeSettings;
+	},
+	getColorMode: (state: UIStateType): UIColorModes => {
+		return state.colorMode;
 	}
 };
 

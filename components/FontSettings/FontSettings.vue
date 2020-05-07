@@ -1,17 +1,27 @@
 <template>
 	<div class="font-settings" :class="{ 'font-settings--active': isActive }">
+		<div
+			v-if="!init"
+			class="font-settings__background"
+			@click="isActive = false"
+		></div>
 		<div class="font-settings__shadow"></div>
 		<div class="font-settings__container">
 			<div class="font-settings__content">
 				<h2>Settings</h2>
-				<p>
+				<p v-if="init">
 					We need some info about the font you want to make. You can change
 					anything later aswell, so don't worry.
 				</p>
 			</div>
+
+			<!-- VIEW DETAILS -->
 			<form v-if="charSets" class="font-settings__form form--stack">
 				<h4>Font details</h4>
-				<div class="input-field input-field--text">
+				<div
+					class="input-field input-field--text"
+					:class="{ 'input-field--inline': !init }"
+				>
 					<input
 						v-model="fontTitle"
 						placeholder="My Font Title"
@@ -21,7 +31,10 @@
 
 					<label class="input-field__label">Title</label>
 				</div>
-				<div class="input-field input-field--text">
+				<div
+					class="input-field input-field--text"
+					:class="{ 'input-field--inline': !init }"
+				>
 					<input
 						v-model="fontVariation"
 						placeholder="ex. Regular, Bold, Condensed, etc.."
@@ -36,7 +49,10 @@
 						<option>Bold</option>
 					</datalist>
 				</div>
-				<div class="input-field input-field--text">
+				<div
+					class="input-field input-field--text"
+					:class="{ 'input-field--inline': !init }"
+				>
 					<input
 						v-model="fontStyle"
 						placeholder="ex. Normal, Italic, etc.."
@@ -49,6 +65,33 @@
 						<option>Normal</option>
 						<option>Italic</option>
 					</datalist>
+				</div>
+			</form>
+
+			<!-- VIEW DETAILS -->
+
+			<form v-if="charSets && !init" class="font-settings__form form--stack">
+				<h4>View settings</h4>
+				<div
+					class="input-field input-field--range"
+					:class="{ 'input-field--inline': !init }"
+				>
+					<input
+						v-model="glyphOpacity"
+						class="input-field__input input-field__input--range input--range"
+						type="range"
+					/>
+					<label class="input-field__label">Glyph Opacity</label>
+				</div>
+				<div
+					class="input-field input-field--range"
+					:class="{ 'input-field--inline': !init }"
+				>
+					<select v-model="colorMode">
+						<option value="light">Light mode</option>
+						<option value="dark">Dark mode</option>
+					</select>
+					<label class="input-field__label">Mode</label>
 				</div>
 			</form>
 			<div class="font-settings__sets">
@@ -85,6 +128,12 @@
 import Vue from 'vue';
 import { GlyphSetType } from '@/types';
 export default Vue.extend({
+	props: {
+		init: {
+			type: Boolean,
+			default: false
+		}
+	},
 	computed: {
 		isActive: {
 			get(): boolean {
@@ -120,6 +169,22 @@ export default Vue.extend({
 				this.$store.dispatch('glyphs/setStyle', value);
 			}
 		},
+		glyphOpacity: {
+			get(): number {
+				return this.$store.getters['view/getOpacity'];
+			},
+			set(value: number): void {
+				this.$store.dispatch('view/setView', { type: 'opacity', value });
+			}
+		},
+		colorMode: {
+			get(): number {
+				return this.$store.getters['ui/getColorMode'];
+			},
+			set(value: string): void {
+				this.$store.dispatch('ui/setMode', value);
+			}
+		},
 
 		charSets(): GlyphSetType[] {
 			return this.$store.getters['glyphs/getCharacterSets'];
@@ -130,8 +195,10 @@ export default Vue.extend({
 			this.$store.dispatch('glyphs/toggleCharset', name);
 		},
 		saveSettings() {
-			this.$store.dispatch('ui/setLoading', true);
-			this.$router.push({ path: 'draw' });
+			if (this.$props.init) {
+				this.$store.dispatch('ui/setLoading', true);
+				this.$router.push({ path: 'draw' });
+			}
 			this.isActive = false;
 		}
 	}
@@ -150,13 +217,18 @@ export default Vue.extend({
 	max-width: 640px;
 	transform: translate(-50%, -50%) scale(0.5);
 	opacity: 0;
-	transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
+	transition: transform 0.25s 0.25s ease-in-out, opacity 0.25s ease-in-out;
 	pointer-events: none;
 
 	&--active {
 		transform: translate(-50%, -50%) scale(1);
 		opacity: 1;
+		transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
 		pointer-events: all;
+		.font-settings__background {
+			opacity: 1;
+			transition: opacity 0.5s 0.5s;
+		}
 	}
 	@media #{$small-only} {
 		top: 2em;
@@ -164,6 +236,17 @@ export default Vue.extend({
 		&--active {
 			transform: translateX(-50%) scale(1);
 		}
+	}
+	&__background {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, 0.25);
+		transform: translate(-50%, -50%);
+		opacity: 0;
+		transition: opacity 1s 1s;
 	}
 	&__content {
 		padding: grid(1);

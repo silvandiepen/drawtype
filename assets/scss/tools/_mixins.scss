@@ -20,4 +20,11 @@
 		$color-soft-1,
 		$color-soft-2
 	);
+	.dark & {
+		background-image: linear-gradient(
+			to right bottom,
+			$color-darksoft-1,
+			$color-darksoft-2
+		);
+	}
 }
