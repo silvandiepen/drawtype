@@ -108,6 +108,7 @@ export default Vue.extend({
 	methods: {
 		cleanCanvas() {
 			this.canvas.clear();
+			this.setGlyphData();
 		},
 		setActive() {
 			this.$store.dispatch('ui/setActiveGlyph', this.glyph.unicode);
