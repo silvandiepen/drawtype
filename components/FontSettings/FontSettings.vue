@@ -229,7 +229,6 @@ export default Vue.extend({
 	align-items: center;
 	width: 100vw;
 	height: 100vh;
-	background-color: rgba(0, 0, 255, 0.5);
 	transform: scale(0);
 	overflow: scroll;
 	opacity: 0;

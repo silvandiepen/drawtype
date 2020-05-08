@@ -4,7 +4,7 @@
 		<button class="button" @click="openDialog">
 			Start Your Font
 		</button>
-		<FontSettings init="true" />
+		<FontSettings :init="true" />
 	</main>
 </template>
 
