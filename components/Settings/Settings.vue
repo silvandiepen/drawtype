@@ -20,7 +20,6 @@ export default Vue.extend({
 	},
 	methods: {
 		triggerSettings() {
-			console.log('haaai');
 			this.$store.dispatch('ui/setActiveSettings', true);
 		}
 	}

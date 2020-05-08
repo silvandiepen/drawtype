@@ -279,7 +279,8 @@ export default Vue.extend({
 		z-index: 2;
 		display: flex;
 		flex-direction: column;
-		max-width: 640px;
+		width: 640px;
+		max-width: 90vw;
 	}
 	&__modal {
 		position: relative;
