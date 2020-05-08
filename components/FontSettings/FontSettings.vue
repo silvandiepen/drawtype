@@ -5,122 +5,131 @@
 			class="font-settings__background"
 			@click="isActive = false"
 		></div>
-		<div class="font-settings__shadow"></div>
 		<div class="font-settings__container">
-			<div class="font-settings__content">
-				<h2>Settings</h2>
-				<p v-if="init">
-					We need some info about the font you want to make. You can change
-					anything later aswell, so don't worry.
-				</p>
-			</div>
+			<div class="spacer"></div>
+			<div class="font-settings__modal">
+				<div class="font-settings__shadow"></div>
+				<div class="font-settings__panel">
+					<div class="font-settings__content">
+						<h2>Settings</h2>
+						<p v-if="init">
+							We need some info about the font you want to make. You can change
+							anything later aswell, so don't worry.
+						</p>
+					</div>
 
-			<!-- VIEW DETAILS -->
-			<form v-if="charSets" class="font-settings__form form--stack">
-				<h4>Font details</h4>
-				<div
-					class="input-field input-field--text"
-					:class="{ 'input-field--inline': !init }"
-				>
-					<input
-						v-model="fontTitle"
-						placeholder="My Font Title"
-						class="input-field__input input-field__input--text input--text"
-						type="text"
-					/>
+					<!-- VIEW DETAILS -->
+					<form v-if="charSets" class="font-settings__form form--stack">
+						<h4>Font details</h4>
+						<div
+							class="input-field input-field--text"
+							:class="{ 'input-field--inline': !init }"
+						>
+							<input
+								v-model="fontTitle"
+								placeholder="My Font Title"
+								class="input-field__input input-field__input--text input--text"
+								type="text"
+							/>
 
-					<label class="input-field__label">Title</label>
-				</div>
-				<div
-					class="input-field input-field--text"
-					:class="{ 'input-field--inline': !init }"
-				>
-					<input
-						v-model="fontVariation"
-						placeholder="ex. Regular, Bold, Condensed, etc.."
-						class="input-field__input input-field__input--text input--text"
-						type="text"
-						list="variationSuggestion"
-					/>
-					<label class="input-field__label">Variation</label>
-					<datalist id="variationSuggestion">
-						<option>Light</option>
-						<option>Regular</option>
-						<option>Bold</option>
-					</datalist>
-				</div>
-				<div
-					class="input-field input-field--text"
-					:class="{ 'input-field--inline': !init }"
-				>
-					<input
-						v-model="fontStyle"
-						placeholder="ex. Normal, Italic, etc.."
-						class="input-field__input input-field__input--text input--text"
-						type="text"
-						list="styleSuggestions"
-					/>
-					<label class="input-field__label">Style</label>
-					<datalist id="styleSuggestions">
-						<option>Normal</option>
-						<option>Italic</option>
-					</datalist>
-				</div>
-			</form>
+							<label class="input-field__label">Title</label>
+						</div>
+						<div
+							class="input-field input-field--text"
+							:class="{ 'input-field--inline': !init }"
+						>
+							<input
+								v-model="fontVariation"
+								placeholder="ex. Regular, Bold, Condensed, etc.."
+								class="input-field__input input-field__input--text input--text"
+								type="text"
+								list="variationSuggestion"
+							/>
+							<label class="input-field__label">Variation</label>
+							<datalist id="variationSuggestion">
+								<option>Light</option>
+								<option>Regular</option>
+								<option>Bold</option>
+							</datalist>
+						</div>
+						<div
+							class="input-field input-field--text"
+							:class="{ 'input-field--inline': !init }"
+						>
+							<input
+								v-model="fontStyle"
+								placeholder="ex. Normal, Italic, etc.."
+								class="input-field__input input-field__input--text input--text"
+								type="text"
+								list="styleSuggestions"
+							/>
+							<label class="input-field__label">Style</label>
+							<datalist id="styleSuggestions">
+								<option>Normal</option>
+								<option>Italic</option>
+							</datalist>
+						</div>
+					</form>
 
-			<!-- VIEW DETAILS -->
+					<!-- VIEW DETAILS -->
 
-			<form v-if="charSets && !init" class="font-settings__form form--stack">
-				<h4>View settings</h4>
-				<div
-					class="input-field input-field--range"
-					:class="{ 'input-field--inline': !init }"
-				>
-					<input
-						v-model="glyphOpacity"
-						class="input-field__input input-field__input--range input--range"
-						type="range"
-					/>
-					<label class="input-field__label">Glyph Opacity</label>
-				</div>
-				<div
-					class="input-field input-field--range"
-					:class="{ 'input-field--inline': !init }"
-				>
-					<select v-model="colorMode">
-						<option value="light">Light mode</option>
-						<option value="dark">Dark mode</option>
-					</select>
-					<label class="input-field__label">Mode</label>
-				</div>
-			</form>
-			<div class="font-settings__sets">
-				<h4 class="options__section-title">Choose your characters</h4>
-				<ul class="options__list">
-					<li
-						v-for="(list, idx) in charSets"
-						:key="idx"
-						class="options__option"
-						:class="{ 'options__option--active': list.active }"
-						@click="activateCharset(list.name)"
+					<form
+						v-if="charSets && !init"
+						class="font-settings__form form--stack"
 					>
-						<h5 class="options__title">{{ list.title }}</h5>
-						<ul class="options__set">
+						<h4>View settings</h4>
+						<div
+							class="input-field input-field--range"
+							:class="{ 'input-field--inline': !init }"
+						>
+							<input
+								v-model="glyphOpacity"
+								class="input-field__input input-field__input--range input--range"
+								type="range"
+							/>
+							<label class="input-field__label">Glyph Opacity</label>
+						</div>
+						<div
+							class="input-field input-field--range"
+							:class="{ 'input-field--inline': !init }"
+						>
+							<select v-model="colorMode">
+								<option value="light">Light mode</option>
+								<option value="dark">Dark mode</option>
+							</select>
+							<label class="input-field__label">Mode</label>
+						</div>
+					</form>
+					<div class="font-settings__sets">
+						<h4 class="options__section-title">Choose your characters</h4>
+						<ul class="options__list">
 							<li
-								v-for="(char, idc) in list.data"
-								:key="idc"
-								class="options__character"
+								v-for="(list, idx) in charSets"
+								:key="idx"
+								class="options__option"
+								:class="{ 'options__option--active': list.active }"
+								@click="activateCharset(list.name)"
 							>
-								{{ char.glyph }}
+								<h5 class="options__title">{{ list.title }}</h5>
+								<ul class="options__set">
+									<li
+										v-for="(char, idc) in list.data"
+										:key="idc"
+										class="options__character"
+									>
+										{{ char.glyph }}
+									</li>
+								</ul>
 							</li>
 						</ul>
-					</li>
-				</ul>
+					</div>
+				</div>
 			</div>
+			<button class="button font-settings__save-button" @click="saveSettings">
+				Save & Go
+			</button>
+			<div class="spacer"></div>
 		</div>
-		<button class="button font-settings__save-button" @click="saveSettings">
-			Save & Go
-		</button>
 	</div>
 </template>
 
@@ -206,45 +215,47 @@ export default Vue.extend({
 </script>
 <style lang="scss">
 @import '~tools';
-
+.spacer {
+	display: block;
+	height: 2em;
+}
 .font-settings {
 	position: fixed;
-	top: 50%;
-	left: 50%;
+	top: 0;
+	left: 0;
 	z-index: 10;
-	display: block;
-	width: calc(100% - 4em);
-	max-width: 640px;
-	transform: translate(-50%, -50%) scale(0.5);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 255, 0.5);
+	transform: scale(0);
+	overflow: scroll;
 	opacity: 0;
 	transition: transform 0.25s 0.25s ease-in-out, opacity 0.25s ease-in-out;
 	pointer-events: none;
 
 	&--active {
-		transform: translate(-50%, -50%) scale(1);
+		transform: scale(1);
 		opacity: 1;
-		transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
+		transition: transform 0s ease-in-out, opacity 0.25s ease-in-out;
 		pointer-events: all;
 		.font-settings__background {
 			opacity: 1;
 			transition: opacity 0.5s 0.5s;
 		}
 	}
-	@media #{$small-only} {
-		top: 2em;
-		transform: translateX(-50%) scale(0);
-		&--active {
-			transform: translateX(-50%) scale(1);
-		}
-	}
+
 	&__background {
 		position: absolute;
-		top: 50%;
+		top: 0;
+
+		bottom: 0;
 		left: 50%;
 		width: 100vw;
-		height: 100vh;
 		background-color: rgba(0, 0, 0, 0.25);
-		transform: translate(-50%, -50%);
+		transform: translateX(-50%);
 		opacity: 0;
 		transition: opacity 1s 1s;
 	}
@@ -267,12 +278,19 @@ export default Vue.extend({
 	&__container {
 		position: relative;
 		z-index: 2;
-		max-height: calc(100vh - 8em);
+		display: flex;
+		flex-direction: column;
+		max-width: 640px;
+	}
+	&__modal {
+		position: relative;
+	}
+	&__panel {
+		position: relative;
+		z-index: 2;
 		box-shadow: 0 0.25em 0 0 color(PinkLight);
 		border-radius: $base-border-radius-xl;
 		background-color: white;
-
-		overflow: scroll;
 		> *:last-child {
 			border-radius: 0 0 $base-border-radius-xl $base-border-radius-xl;
 		}
@@ -282,11 +300,9 @@ export default Vue.extend({
 		@include shadow();
 	}
 	&__save-button {
-		position: absolute;
-		top: calc(100% + 1em);
-		left: 50%;
 		z-index: 3;
-		transform: translateX(-50%);
+		width: auto;
+		margin: 1em;
 	}
 }
 .options {
@@ -304,7 +320,7 @@ export default Vue.extend({
 	&__list {
 		display: flex;
 		max-height: 50vh;
-		overflow: scroll;
+		overflow-x: scroll;
 		padding: 2em !important;
 		scroll-snap-type: y mandatory;
 		&--active {
