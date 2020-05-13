@@ -58,6 +58,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+@import '~tools';
 .settings {
 	&--view {
 		display: flex;
@@ -76,6 +77,11 @@ export default Vue.extend({
 				text-transform: uppercase;
 				opacity: 0.25;
 				padding: 0.5em 0;
+			}
+		}
+		.input-field--range {
+			@include input-range-track(false) {
+				border: 2px solid currentColor;
 			}
 		}
 	}

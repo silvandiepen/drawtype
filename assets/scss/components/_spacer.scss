@@ -1,0 +1,7 @@
+.spacer {
+	display: block;
+	height: 2em;
+	&--quarter {
+		height: 25vh;
+	}
+}

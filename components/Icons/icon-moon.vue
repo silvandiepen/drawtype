@@ -1,0 +1,67 @@
+<template>
+	<span class="icon icon--moon" :style="computedStyle">
+		<svg
+			version="1.1"
+			xmlns="http://www.w3.org/2000/svg"
+			xmlnsXlink="http://www.w3.org/1999/xlink"
+			x="0px"
+			y="0px"
+			width="216px"
+			height="216px"
+			viewBox="0 0 216 216"
+			enable-background="new 0 0 216 216"
+			xml:space="preserve"
+		>
+			<path
+				d="M104.042,178.87c-0.257,0-0.514-0.008-0.771-0.025C66.109,176.397,37,145.278,37,108s29.109-68.397,66.271-70.845
+	c3.275-0.215,6.521,0.951,8.921,3.198c2.42,2.266,3.808,5.467,3.808,8.782v117.73c0,3.315-1.388,6.516-3.808,8.782
+	C109.98,177.718,107.046,178.87,104.042,178.87z M100,53.578C73.318,57.471,53,80.585,53,108s20.318,50.529,47,54.422V53.578z"
+			/>
+		</svg>
+	</span>
+</template>
+
+<script lang="ts">
+import Vue from 'vue';
+
+interface computedStyleProps {
+	height: string;
+	width: string;
+}
+export default Vue.extend({
+	name: 'IconMoon',
+	props: {
+		color: {
+			type: String,
+			default: 'currentColor'
+		},
+		size: {
+			type: Number,
+			default: 32
+		}
+	},
+	computed: {
+		computedStyle(): computedStyleProps {
+			const size = this.$props.size ? this.$props.size : 32;
+			return {
+				height: size + 'px',
+				width: size + 'px'
+			};
+		}
+	}
+});
+</script>
+<style lang="scss">
+.icon--moon {
+	display: inline-block;
+	overflow: hidden;
+	&,
+	svg {
+		width: calc(var(--size, 32) * 1px);
+		height: calc(var(--size, 32) * 1px);
+	}
+	svg path {
+		fill: var(--fill, currentColor);
+	}
+}
+</style>

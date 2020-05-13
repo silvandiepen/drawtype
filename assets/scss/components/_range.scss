@@ -38,16 +38,7 @@ $ie-bottom-track-color: $track-color !default;
 	cursor: default;
 }
 
-.input--range {
-	width: $track-width;
-	background: transparent;
-	-webkit-appearance: none;
-	margin: 0;
-
-	&::-moz-focus-outer {
-		border: 0;
-	}
-
+@mixin input-range-focus {
 	&:focus {
 		outline: 0;
 
@@ -63,59 +54,94 @@ $ie-bottom-track-color: $track-color !default;
 			background: $track-color;
 		}
 	}
-
+}
+@mixin input-range-track($output: true) {
 	&::-webkit-slider-runnable-track {
-		@include track;
-
-		border: $track-border-width solid $track-border-color;
-		border-radius: $track-radius;
-		background: $track-color;
+		@if $output {
+			@include track;
+			border: $track-border-width solid $track-border-color;
+			border-radius: $track-radius;
+			background: $track-color;
+		}
+		@content;
 	}
-
-	&::-webkit-slider-thumb {
-		@include thumb;
-		-webkit-appearance: none;
-		margin-top: (
-			(-$track-border-width * 2 + $track-height) / 2 - $thumb-height / 2
-		);
-	}
-
 	&::-moz-range-track {
-		@include track;
-		height: $track-height / 2;
-		border: $track-border-width solid $track-border-color;
-		border-radius: $track-radius;
-		background: $track-color;
+		@if $output {
+			@include track;
+			height: $track-height / 2;
+			border: $track-border-width solid $track-border-color;
+			border-radius: $track-radius;
+			background: $track-color;
+		}
+		@content;
 	}
-
-	&::-moz-range-thumb {
-		@include thumb;
-	}
-
 	&::-ms-track {
-		@include track;
-		border-width: ($thumb-height / 2) 0;
-		border-color: transparent;
-		background: transparent;
-		color: transparent;
+		@if $output {
+			@include track;
+			border-width: ($thumb-height / 2) 0;
+			border-color: transparent;
+			background: transparent;
+			color: transparent;
+		}
+		@content;
 	}
-
 	&::-ms-fill-lower {
-		border: $track-border-width solid $track-border-color;
-		border-radius: ($track-radius * 2);
-		background: $ie-bottom-track-color;
+		@if $output {
+			border: $track-border-width solid $track-border-color;
+			border-radius: ($track-radius * 2);
+			background: $ie-bottom-track-color;
+		}
+		@content;
 	}
 
 	&::-ms-fill-upper {
-		border: $track-border-width solid $track-border-color;
-		border-radius: ($track-radius * 2);
-		background: $track-color;
+		@if $output {
+			border: $track-border-width solid $track-border-color;
+			border-radius: ($track-radius * 2);
+			background: $track-color;
+		}
+		@content;
+	}
+}
+@mixin input-range-thumb($output: true) {
+	&::-webkit-slider-thumb {
+		@if $output {
+			@include thumb;
+			-webkit-appearance: none;
+			margin-top: (
+				(-$track-border-width * 2 + $track-height) / 2 - $thumb-height / 2
+			);
+		}
+
+		@content;
 	}
 
-	&::-ms-thumb {
-		@include thumb;
-		margin-top: $track-height / 4;
+	&::-moz-range-thumb {
+		@if $output {
+			@include thumb;
+		}
+		@content;
 	}
+	&::-ms-thumb {
+		@if $output {
+			@include thumb;
+			margin-top: $track-height / 4;
+		}
+		@content;
+	}
+}
+@mixin input-range() {
+	width: $track-width;
+	background: transparent;
+	-webkit-appearance: none;
+	margin: 0;
+
+	&::-moz-focus-outer {
+		border: 0;
+	}
+	@include input-range-focus();
+	@include input-range-track();
+	@include input-range-thumb();
 
 	&:disabled {
 		&::-webkit-slider-thumb,

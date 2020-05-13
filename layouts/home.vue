@@ -1,18 +1,17 @@
 <template>
 	<div class="layout layout-default" :class="colorMode">
 		<nuxt />
-		<LayoutFooter />
+		<Footer />
 		<Loading />
 	</div>
 </template>
 
 <script>
-import LayoutFooter from '~/components/layout/footer.vue';
+import { Footer } from '@/components';
 import Loading from '~/components/Loading.vue';
-
 export default {
 	components: {
-		LayoutFooter,
+		Footer,
 		Loading
 	},
 	computed: {

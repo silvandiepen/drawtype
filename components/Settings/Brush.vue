@@ -178,6 +178,9 @@ export default Vue.extend({
 			// -webkit-appearance: slider-vertical; /* Does work, but not with styling :(  */
 			transform: translateY(-100%) rotate(90deg);
 			transform-origin: 0 100%;
+			@include input-range-track(false) {
+				border: 2px solid currentColor;
+			}
 			&__opacity,
 			&__size {
 				&::-webkit-slider-runnable-track {

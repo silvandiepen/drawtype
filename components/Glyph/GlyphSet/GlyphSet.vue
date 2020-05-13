@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { GlyphCanvas } from '@/components';
+import GlyphCanvas from '../GlyphCanvas/GlyphCanvas.vue';
 import { GlyphSetType, GlyphDataType } from '@/types';
 
 export default Vue.extend({

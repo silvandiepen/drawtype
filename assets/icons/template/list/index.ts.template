@@ -1,0 +1,1 @@
+<% files.forEach(function(file,index) { %>export { default as <%= file.componentName %>} from './<%= file.name %>.vue';<% }); %>

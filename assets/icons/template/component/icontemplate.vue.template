@@ -1,0 +1,49 @@
+<template>
+	<span class="icon <%= name.replace('-','--') %>" :style="computedStyle">	
+		<%- fixJsx(data_clean.attrs) %>
+	</span>
+</template>
+
+<script lang="ts">
+import Vue from 'vue';
+
+interface computedStyleProps {
+	height: string;
+	width: string;
+}
+export default Vue.extend({
+	name: '<%= componentName %>',
+	props: {
+		color: {
+			type: String,
+			default: 'currentColor'
+		},
+		size:{
+			type: Number,
+			default: 32
+		}
+	},
+	computed: {
+		computedStyle(): computedStyleProps {
+			const size = this.$props.size ? this.$props.size : 32;
+			return {
+				height: size + 'px',
+				width: size + 'px'
+			};
+		}
+	}
+});
+</script>
+<style lang="scss">
+.<%= name.replace('-','--') %>{
+	display: inline-block;
+	overflow:hidden;
+	&,svg{
+		width: calc(var(--size, 32) * 1px);
+		height: calc(var(--size, 32) * 1px);
+	} 
+	svg path {
+		fill: var(--fill, currentColor);
+	}
+}
+</style>

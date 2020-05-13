@@ -10,6 +10,7 @@ $color-error: color(Red);
 $color-shadow: color(Purple);
 $color-shadow-1: $color-shadow;
 $color-shadow-2: color(Pink);
+
 $color-soft: mix($color-secondary, white, 15%);
 $color-soft-primary: mix($color-primary, white, 15%);
 $color-soft-1: $color-soft;

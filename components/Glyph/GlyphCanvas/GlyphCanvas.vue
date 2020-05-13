@@ -4,7 +4,8 @@
 		class="glyph-canvas"
 		:class="{
 			'glyph-canvas--active': isActive,
-			'glyph-canvas--dirty': glyph.data
+			'glyph-canvas--dirty': glyph.data,
+			'glyph-canvas--not-loaded': !isInitialized
 		}"
 		@click="setActive"
 	>
@@ -49,7 +50,8 @@ export default Vue.extend({
 	data: () => ({
 		brush: {} as PSBrushIface,
 		canvas: {} as extendedICanvasOptions,
-		canvasContainer: null as HTMLCanvasElement | null
+		canvasContainer: null as HTMLCanvasElement | null,
+		isInitialized: false
 	}),
 	computed: {
 		glyph: {
@@ -59,6 +61,9 @@ export default Vue.extend({
 					unicode: this.$props.code
 				});
 			}
+		},
+		currentBrush(): any {
+			return this.$store.getters['brush/getCurrentBrush'];
 		},
 		brushSettings(): BrushStateType {
 			return this.$store.getters['brush/getBrush'];
@@ -77,7 +82,7 @@ export default Vue.extend({
 	watch: {
 		brushSettings: {
 			handler() {
-				this.setBrushSettings();
+				if (this.isActive) this.setBrush();
 			},
 			deep: true,
 			immediate: true
@@ -90,7 +95,8 @@ export default Vue.extend({
 		isActive: {
 			handler() {
 				if (this.isActive) {
-					this.canvas.isDrawingMode = true;
+					if (this.isInitialized) this.canvas.isDrawingMode = true;
+					else this.initCanvas();
 				} else {
 					this.canvas.isDrawingMode = false;
 				}
@@ -98,12 +104,9 @@ export default Vue.extend({
 		}
 	},
 	mounted() {
-		this.initCanvas();
-
-		this.canvas.on('object:added', () => {
-			this.setGlyphData();
-			// this.glyph.data = this.canvas.toSVG();
-		});
+		if (this.isActive) {
+			this.initCanvas();
+		}
 	},
 	methods: {
 		cleanCanvas() {
@@ -112,6 +115,7 @@ export default Vue.extend({
 		},
 		setActive() {
 			this.$store.dispatch('ui/setActiveGlyph', this.glyph.unicode);
+			this.initDoubleTap();
 		},
 		setGlyphData() {
 			this.$store.dispatch('glyphs/setGlyphData', {
@@ -131,18 +135,12 @@ export default Vue.extend({
 				this.canvas.renderAll();
 			}
 		},
-		setBrushSettings() {
-			// console.log(this.brush);
-			if (
-				this.canvas &&
-				this.canvas.freeDrawingBrush &&
-				this.canvas.freeDrawingBrush.color
-			) {
-				this.canvas.freeDrawingBrush.color = this.brushSettings.color;
-				this.canvas.freeDrawingBrush.opacity = this.brushSettings.opacity / 100;
-				this.canvas.freeDrawingBrush.width = this.brushSettings.size;
-				// this.canvas.freeDrawingBrush = this.brush;
-			}
+
+		initDoubleTap() {
+			if (this.canvasContainer)
+				this.canvasContainer.addEventListener('touchstart', (e) => {
+					console.log(e.touches);
+				});
 		},
 		initCanvas() {
 			if (this.glyph) {
@@ -151,18 +149,36 @@ export default Vue.extend({
 				);
 				if (this.canvasContainer) {
 					this.canvas = new fabric.Canvas(this.canvasContainer, {});
+					this.canvas.isDrawingMode = true;
 					this.setCanvasSize();
 					this.setBrush();
 				}
 			}
+			this.canvas.on('object:added', () => {
+				this.setGlyphData();
+				// this.glyph.data = this.canvas.toSVG();
+			});
+			this.isInitialized = true;
 		},
 		setBrush() {
-			if (this.canvas) this.brush = new PSBrush(this.canvas);
-			if (this.brush) {
-				this.brush.width = this.brushSettings.size;
-				this.brush.color = this.brushSettings.color;
-				this.brush.opacity = this.brushSettings.opacity / 100;
-				this.canvas.freeDrawingBrush = this.brush;
+			switch (this.brushSettings.type) {
+				case 'brush':
+					if (this.canvas) this.brush = new PSBrush(this.canvas);
+					if (this.brush) {
+						this.brush.width = this.brushSettings.size;
+						this.brush.color = this.brushSettings.color;
+						this.brush.opacity = this.brushSettings.opacity / 100;
+						this.canvas.freeDrawingBrush = this.brush;
+					}
+					break;
+				case 'eraser':
+					// this.canvas.isDrawingMode = 'delete';
+					this.canvas.freeDrawingBrush.color = 'red';
+					this.canvas.freeDrawingBrush.width = this.brushSettings.size;
+					this.canvas.freeDrawingBrush.globalCompositionOperation =
+						'destination-out';
+					this.canvas.freeDrawingBrush.id = 'erasure';
+					break;
 			}
 		}
 		// setStroke() {
@@ -184,6 +200,11 @@ export default Vue.extend({
 	height: 100%;
 	.dark & {
 		color: white;
+	}
+	&--not-loaded {
+		canvas {
+			display: none;
+		}
 	}
 	canvas {
 		pointer-events: none;

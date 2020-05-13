@@ -50,6 +50,10 @@ export default Vue.extend({
 	> div {
 		width: 33.33%;
 	}
+	.dark & {
+		background-color: $color-dark;
+		color: white;
+	}
 }
 .font-title {
 	width: 100%;
@@ -63,6 +67,10 @@ export default Vue.extend({
 	}
 	@media #{$small-only} {
 		text-align: right;
+	}
+	.dark & {
+		background-color: $color-dark;
+		color: white;
 	}
 }
 </style>

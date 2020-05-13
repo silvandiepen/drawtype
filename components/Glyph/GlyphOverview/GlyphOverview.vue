@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import GlyphSet from '@/components/GlyphSet/GlyphSet.vue';
+import GlyphSet from '@/components/Glyph/GlyphSet/GlyphSet.vue';
 
 export default {
 	components: {
