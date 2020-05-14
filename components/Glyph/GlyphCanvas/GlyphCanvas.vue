@@ -9,7 +9,6 @@
 		}"
 		@click="setActive"
 	>
-		<div class="glyph-canvas__shadow"></div>
 		<div class="glyph-canvas__container">
 			<div class="glyph-canvas__tools">
 				<button class="ui-button" @click="cleanCanvas">
@@ -222,17 +221,14 @@ export default Vue.extend({
 			background-color: $color-dark;
 		}
 	}
-
-	&__shadow {
-		z-index: -1;
-	}
 	&--active {
 		canvas {
 			pointer-events: all;
 		}
-		.glyph-canvas__shadow {
-			@include shadow();
+		.glyph-canvas__container {
+			box-shadow: 0.25em 0.25em 1em 0 rgba($color-primary, 0.25);
 		}
+
 		.glyph-canvas__tools {
 			display: flex;
 		}
@@ -240,25 +236,22 @@ export default Vue.extend({
 	&,
 	canvas,
 	&__glyph {
+		position: absolute;
+		top: 0;
+		left: 0;
 		width: 240px;
 		height: 240px;
 		border-radius: $base-border-radius-l;
+		font-size: calc(var(--view-size) / 2);
 		line-height: 240px;
+		text-align: center;
+		opacity: var(--view-opacity);
+		pointer-events: none;
 		@media #{$small-only} {
 			width: 320px;
 			height: 320px;
 			line-height: 320px;
 		}
-	}
-	&__glyph {
-		position: absolute;
-		top: 0;
-		left: 0;
-		font-size: calc(var(--view-size) / 2);
-		// line-height: 1.75;
-		text-align: center;
-		opacity: var(--view-opacity);
-		pointer-events: none;
 	}
 	&__tools {
 		position: absolute;
