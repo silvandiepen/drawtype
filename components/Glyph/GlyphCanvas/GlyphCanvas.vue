@@ -12,7 +12,15 @@
 		<div class="glyph-canvas__shadow"></div>
 		<div class="glyph-canvas__container">
 			<div class="glyph-canvas__tools">
-				<button @click="cleanCanvas">clean</button>
+				<button class="ui-button" @click="cleanCanvas">
+					<IconDelete class="ui-button__icon" />
+				</button>
+				<button class="ui-button" @click="cleanCanvas">
+					<IconUndo class="ui-button__icon" />
+				</button>
+				<button class="ui-button" @click="cleanCanvas">
+					<IconRedo class="ui-button__icon" />
+				</button>
 			</div>
 			<canvas
 				:id="`canvas-${glyph.unicode}`"
@@ -29,6 +37,7 @@ import { fabric } from 'fabric';
 import { ICanvasOptions, StaticCanvas } from 'fabric/fabric-impl';
 import { PSBrush, PSBrushIface } from '@arch-inc/fabricjs-psbrush/dist';
 import { BrushStateType, GlyphDataType } from '@/types';
+import { IconDelete, IconUndo, IconRedo } from '@/components/Icons';
 
 interface extendedICanvasOptions extends ICanvasOptions, StaticCanvas {
 	freeDrawingBrush: any;
@@ -37,6 +46,11 @@ interface extendedICanvasOptions extends ICanvasOptions, StaticCanvas {
 	renderAll: any;
 }
 export default Vue.extend({
+	components: {
+		IconDelete,
+		IconUndo,
+		IconRedo
+	},
 	props: {
 		code: {
 			type: Number,
@@ -220,7 +234,7 @@ export default Vue.extend({
 			@include shadow();
 		}
 		.glyph-canvas__tools {
-			display: block;
+			display: flex;
 		}
 	}
 	&,
@@ -250,23 +264,12 @@ export default Vue.extend({
 		position: absolute;
 		top: 100%;
 		left: 0;
-		display: flex;
 		display: none;
+		flex-direction: row;
 		height: auto;
 		color: white;
 		line-height: 1;
-		padding: 0.25em 0.5em;
-		button {
-			border: none;
-			border-radius: $base-border-radius;
-			background-color: transparent;
-			background-color: $color-dark;
-			color: currentColor;
-			padding: 0.5em;
-			&:focus {
-				outline: none;
-			}
-		}
+		padding: 0em;
 	}
 }
 </style>

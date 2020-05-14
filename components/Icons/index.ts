@@ -1,7 +1,12 @@
 export { default as IconBrush } from './icon-brush.vue';
+export { default as IconDelete } from './icon-delete.vue';
+export { default as IconDocumentPlay } from './icon-document-play.vue';
+export { default as IconDocument } from './icon-document.vue';
 export { default as IconEraser } from './icon-eraser.vue';
 export { default as IconExport } from './icon-export.vue';
 export { default as IconImport } from './icon-import.vue';
 export { default as IconMoon } from './icon-moon.vue';
+export { default as IconRedo } from './icon-redo.vue';
 export { default as IconSettings } from './icon-settings.vue';
 export { default as IconSun } from './icon-sun.vue';
+export { default as IconUndo } from './icon-undo.vue';

@@ -5,6 +5,27 @@
 		<div class="settings__tools">
 			<button
 				class="settings__trigger ui-button"
+				:class="[hasUndo ? 'ui-button--available' : 'ui-button--unavailable']"
+				title="Undo"
+				@click="undo"
+			>
+				<span class="ui-button__background" />
+
+				<IconUndo class="ui-button__icon" />
+			</button>
+			<button
+				class="settings__trigger ui-button"
+				:class="[hasRedo ? 'ui-button--available' : 'ui-button--unavailable']"
+				title="Redo"
+				@click="redo"
+			>
+				<span class="ui-button__background" />
+				<IconRedo class="ui-button__icon" />
+			</button>
+			<span class="ui-separator"></span>
+			<button
+				class="settings__trigger ui-button"
+				title="Brush"
 				:class="[
 					brushType === 'brush' ? 'ui-button--active' : 'ui-button--inactive'
 				]"
@@ -15,6 +36,7 @@
 			</button>
 			<button
 				class="settings__trigger ui-button"
+				title="Eraser"
 				:class="[
 					brushType === 'eraser' ? 'ui-button--active' : 'ui-button--inactive'
 				]"
@@ -24,12 +46,20 @@
 				<IconEraser class="ui-button__icon" />
 			</button>
 			<span class="ui-separator"></span>
-			<button class="settings__trigger ui-button" @click="triggerSettings">
+			<button
+				class="settings__trigger ui-button"
+				title="Settings"
+				@click="triggerSettings"
+			>
 				<IconSettings class="ui-button__icon" />
 				<!-- <span class="ui-button__text">Settings</span> -->
 			</button>
-			<button class="settings__trigger ui-button">
+			<button class="settings__trigger ui-button" title="Export">
 				<IconExport class="ui-button__icon" />
+				<!-- <span class="ui-button__text">Export</span> -->
+			</button>
+			<button class="settings__trigger ui-button" title="Preview">
+				<IconDocumentPlay class="ui-button__icon" />
 				<!-- <span class="ui-button__text">Export</span> -->
 			</button>
 		</div>
@@ -45,7 +75,10 @@ import {
 	IconSettings,
 	IconExport,
 	IconBrush,
-	IconEraser
+	IconEraser,
+	IconRedo,
+	IconUndo,
+	IconDocumentPlay
 } from '@/components/Icons';
 
 export default Vue.extend({
@@ -54,7 +87,10 @@ export default Vue.extend({
 		IconSettings,
 		IconExport,
 		IconBrush,
-		IconEraser
+		IconEraser,
+		IconRedo,
+		IconUndo,
+		IconDocumentPlay
 		// ViewSettings: View
 	},
 	computed: {
@@ -65,11 +101,23 @@ export default Vue.extend({
 			get(): string {
 				return this.$store.getters['brush/getType'];
 			}
+		},
+		hasUndo(): boolean {
+			return true;
+		},
+		hasRedo(): boolean {
+			return false;
 		}
 	},
 	methods: {
 		triggerSettings() {
 			this.$store.dispatch('ui/setActiveSettings', true);
+		},
+		undo() {
+			console.log('undo');
+		},
+		redo() {
+			console.log('redo');
 		}
 	}
 });
@@ -83,7 +131,7 @@ export default Vue.extend({
 	height: 32px;
 	background-color: currentColor;
 	opacity: 0.125;
-	margin: 1em;
+	margin: 1em 2em;
 }
 .ui-button {
 	position: relative;
@@ -97,6 +145,32 @@ export default Vue.extend({
 	background-color: transparent;
 	line-height: 3em;
 	padding: 0;
+	opacity: 0.75;
+	&:hover {
+		opacity: 1;
+	}
+	&[title]::before {
+		content: attr(title);
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		display: block;
+		height: auto;
+		border-radius: $base-border-radius;
+		font-weight: bold;
+		font-size: 0.875em;
+		line-height: 1;
+		text-transform: uppercase;
+		transform: translateX(0%);
+		padding: 0.5em;
+		opacity: 0;
+		transition: all $base-transition;
+	}
+	&[title]:hover::before {
+		transform: translateX(-50%);
+		opacity: 1;
+	}
+
 	&--inactive {
 		opacity: 0.5;
 	}
@@ -105,6 +179,12 @@ export default Vue.extend({
 			transform: scale(1);
 			opacity: 1;
 		}
+	}
+	&--available {
+		opacity: 1;
+	}
+	&--unavailable {
+		opacity: 0.25;
 	}
 	&:focus {
 		outline: none;

@@ -1,5 +1,5 @@
 <template>
-	<span class="icon icon--export" :style="computedStyle">
+	<span class="icon icon--undo" :style="computedStyle">
 		<svg
 			version="1.1"
 			xmlns="http://www.w3.org/2000/svg"
@@ -12,14 +12,13 @@
 			enable-background="new 0 0 216 216"
 			xml:space="preserve"
 		>
-			<path
-				d="M135.364,63.879l-25.243-25.243c-1.172-1.172-3.071-1.172-4.243,0L80.636,63.879C78.746,65.769,80.085,69,82.757,69H102v63
-	c0,1.657,1.343,3,3,3h6c1.657,0,3-1.343,3-3V69h19.243C135.915,69,137.254,65.769,135.364,63.879z"
-			/>
-			<path
-				d="M173,168H43c-2.209,0-4-1.791-4-4v-34c0-2.209,1.791-4,4-4h4c2.209,0,4,1.791,4,4v26h114v-26c0-2.209,1.791-4,4-4h4
-	c2.209,0,4,1.791,4,4v34C177,166.209,175.209,168,173,168z"
-			/>
+			<g>
+				<path
+					d="M69,114h78v26c0,2.209,1.791,4,4,4h4c2.209,0,4-1.791,4-4v-34c0-2.209-1.791-4-4-4H69V85.172
+		c0-3.564-4.309-5.348-6.828-2.828l-22.828,22.828c-1.562,1.562-1.562,4.095,0,5.657l22.828,22.828
+		c2.52,2.52,6.828,0.735,6.828-2.828V114z"
+				/>
+			</g>
 		</svg>
 	</span>
 </template>
@@ -32,7 +31,7 @@ interface computedStyleProps {
 	width: string;
 }
 export default Vue.extend({
-	name: 'IconExport',
+	name: 'IconUndo',
 	props: {
 		color: {
 			type: String,
@@ -55,7 +54,7 @@ export default Vue.extend({
 });
 </script>
 <style lang="scss">
-.icon--export {
+.icon--undo {
 	display: inline-block;
 	overflow: hidden;
 	&,

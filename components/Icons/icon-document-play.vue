@@ -1,5 +1,5 @@
 <template>
-	<span class="icon icon--export" :style="computedStyle">
+	<span class="icon icon--document-play" :style="computedStyle">
 		<svg
 			version="1.1"
 			xmlns="http://www.w3.org/2000/svg"
@@ -13,12 +13,13 @@
 			xml:space="preserve"
 		>
 			<path
-				d="M135.364,63.879l-25.243-25.243c-1.172-1.172-3.071-1.172-4.243,0L80.636,63.879C78.746,65.769,80.085,69,82.757,69H102v63
-	c0,1.657,1.343,3,3,3h6c1.657,0,3-1.343,3-3V69h19.243C135.915,69,137.254,65.769,135.364,63.879z"
+				d="M48,34v148c0,2.209,1.791,4,4,4h112c2.209,0,4-1.791,4-4V71.172c0-1.061-0.421-2.078-1.172-2.828l-37.172-37.172
+	c-0.75-0.75-1.768-1.172-2.828-1.172H52C49.791,30,48,31.791,48,34z M132,50.485L147.515,66H132V50.485z M156,174H60V42h60v32
+	c0,2.209,1.791,4,4,4h32V174z"
 			/>
 			<path
-				d="M173,168H43c-2.209,0-4-1.791-4-4v-34c0-2.209,1.791-4,4-4h4c2.209,0,4,1.791,4,4v26h114v-26c0-2.209,1.791-4,4-4h4
-	c2.209,0,4,1.791,4,4v34C177,166.209,175.209,168,173,168z"
+				d="M90,102.893v34.215c0,3.071,3.318,4.997,5.985,3.473l29.938-17.107c2.687-1.536,2.687-5.41,0-6.946L95.985,99.42
+	C93.318,97.896,90,99.821,90,102.893z"
 			/>
 		</svg>
 	</span>
@@ -32,7 +33,7 @@ interface computedStyleProps {
 	width: string;
 }
 export default Vue.extend({
-	name: 'IconExport',
+	name: 'IconDocumentPlay',
 	props: {
 		color: {
 			type: String,
@@ -55,7 +56,7 @@ export default Vue.extend({
 });
 </script>
 <style lang="scss">
-.icon--export {
+.icon--document-play {
 	display: inline-block;
 	overflow: hidden;
 	&,
