@@ -230,7 +230,8 @@ export default Vue.extend({
 		}
 
 		.glyph-canvas__tools {
-			display: flex;
+			transform: translateX(-50%);
+			opacity: 1;
 		}
 	}
 	&,
@@ -256,7 +257,7 @@ export default Vue.extend({
 	&__tools {
 		position: absolute;
 		top: 100%;
-		left: 0;
+		left: 50%;
 		display: none;
 		flex-direction: row;
 		justify-content: center;
@@ -264,7 +265,10 @@ export default Vue.extend({
 		height: auto;
 		color: white;
 		line-height: 1;
+		transform: translateX(0%);
+		opacity: 0;
 		padding: 0em;
+		transition: all $base-transition;
 	}
 }
 </style>
