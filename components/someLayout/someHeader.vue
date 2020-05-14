@@ -3,7 +3,6 @@
 		<h3 class="header__logo">
 			<NuxtLink to="/"> <Logo /> </NuxtLink>
 		</h3>
-		<!-- <NavigationTrigger /> -->
 		<NavigationMenu />
 	</header>
 </template>
@@ -11,12 +10,10 @@
 <script lang="ts">
 import Vue from 'vue';
 import NavigationMenu from '@/components/navigation/menu.vue';
-// import NavigationTrigger from '@/components/navigation/trigger.vue';
 import Logo from '@/components/Logo.vue';
 export default Vue.extend({
 	components: {
 		NavigationMenu,
-		// NavigationTrigger,
 		Logo
 	},
 	data: () => ({

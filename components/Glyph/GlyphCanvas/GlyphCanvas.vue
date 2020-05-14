@@ -156,7 +156,6 @@ export default Vue.extend({
 			}
 			this.canvas.on('object:added', () => {
 				this.setGlyphData();
-				// this.glyph.data = this.canvas.toSVG();
 			});
 			this.isInitialized = true;
 		},
@@ -172,7 +171,6 @@ export default Vue.extend({
 					}
 					break;
 				case 'eraser':
-					// this.canvas.isDrawingMode = 'delete';
 					this.canvas.freeDrawingBrush.color = 'red';
 					this.canvas.freeDrawingBrush.width = this.brushSettings.size;
 					this.canvas.freeDrawingBrush.globalCompositionOperation =
@@ -181,14 +179,6 @@ export default Vue.extend({
 					break;
 			}
 		}
-		// setStroke() {
-		// 	if (this.canvas !== null) {
-		// 		this.brush = new PSStroke(this.canvas, {});
-		// 		this.brush.width = this.brushSettings.size;
-		// 		this.brush.color = '#000000';
-		// 		this.canvas.freeDrawingBrush = this.brush;
-		// 	}
-		// }
 	}
 });
 </script>
