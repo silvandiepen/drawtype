@@ -266,6 +266,8 @@ export default Vue.extend({
 		left: 0;
 		display: none;
 		flex-direction: row;
+		justify-content: center;
+		width: 100%;
 		height: auto;
 		color: white;
 		line-height: 1;
