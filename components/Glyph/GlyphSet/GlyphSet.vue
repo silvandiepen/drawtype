@@ -1,26 +1,30 @@
 <template>
 	<div class="glyphs__set">
 		<div class="glyphs__heading">
-			<h3 class="glyphs__title">{{ glyphSet.title }}</h3>
-			<div class="glyphs__status">
-				<span
-					class="glyphs__progress"
-					:class="{
-						'glyphs__progress--done': haveData == glyphSet.data.length
-					}"
-				>
-					<span class="glyphs__done">{{ haveData }}</span>
-					<span class="glyphs__total">{{ glyphSet.data.length }}</span>
-				</span>
+			<div class="glyphs__title-container">
+				<div class="glyphs__status">
+					<span
+						class="glyphs__progress"
+						:class="{
+							'glyphs__progress--done': haveData == glyphSet.data.length
+						}"
+					>
+						<span class="glyphs__done">{{ haveData }}</span>
+						<span class="glyphs__total">{{ glyphSet.data.length }}</span>
+					</span>
+				</div>
+				<h3 class="glyphs__title">{{ glyphSet.title }}</h3>
 			</div>
-			<ul class="glyphs__example">
-				<li
-					v-for="(glyph, idx) in glyphSet.data"
-					:key="idx"
-					class="glyphs__example-glyph"
-					v-html="glyph.data"
-				></li>
-			</ul>
+			<div class="glyphs__preview">
+				<ul class="glyphs__example">
+					<li
+						v-for="(glyph, idx) in glyphSet.data"
+						:key="idx"
+						class="glyphs__example-glyph"
+						v-html="glyph.data"
+					></li>
+				</ul>
+			</div>
 		</div>
 
 		<ul class="glyphs__list">
@@ -76,16 +80,31 @@ export default Vue.extend({
 		position: sticky;
 		top: 0;
 		z-index: 2;
+
 		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		background-color: white;
-		padding: 1em 2em;
 		color: currentColor;
+		padding: 1em 2em;
 		@media #{$small-only} {
 			padding: 1em;
 		}
 		.dark & {
 			background-color: $color-dark;
 		}
+	}
+	&__title-container {
+		display: flex;
+	}
+	&__status {
+		display: flex;
+		align-items: center;
+
+		& + .glyphs__title {
+			margin-left: 0.5em;
+		}
+	}
+	&__title {
+		margin: 0;
 	}
 	&__progress {
 		border: 1px solid currentColor;

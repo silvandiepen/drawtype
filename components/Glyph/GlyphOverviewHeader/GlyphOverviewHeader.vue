@@ -1,7 +1,7 @@
 <template>
 	<div class="heading row">
-		<div class="small-half medium-third"></div>
-		<div class="hide-for-small-only medium-third">
+		<div class="heading__column--spacer"></div>
+		<div class="heading__column--title">
 			<input
 				v-model="fontTitle"
 				placeholder="Your font title"
@@ -9,16 +9,20 @@
 				type="text"
 			/>
 		</div>
-		<SettingsPanel class="hide-for-small-only medium-third heading__settings" />
+		<div class="heading__column--settings">
+			<SettingsPanel />
+		</div>
+		<BrushSettings class="heading__column--brush" />
 	</div>
 </template>
 <script lang="ts">
 import Vue from 'vue';
-import { SettingsPanel } from '@/components';
+import { SettingsPanel, BrushSettings } from '@/components';
 
 export default Vue.extend({
 	components: {
-		SettingsPanel
+		SettingsPanel,
+		BrushSettings
 	},
 	computed: {
 		fontTitle: {
@@ -46,13 +50,45 @@ export default Vue.extend({
 	top: 0;
 	z-index: 5;
 	display: flex;
-	justify-content: space-between;
-	> div {
-		width: 33.33%;
-	}
+
 	.dark & {
 		background-color: $color-dark;
 		color: white;
+	}
+
+	&__column {
+		outline: 1px solid red;
+		&--spacer {
+			display: none;
+			@media #{$large-up} {
+				display: block;
+				width: 33.33%;
+			}
+		}
+		&--settings {
+			// @media #{$medium-down} {
+			position: fixed;
+			bottom: 1em;
+			left: 50%;
+			border-radius: $base-border-radius-l;
+			background-color: $color-light;
+
+			transform: translateX(-50%);
+			// }
+		}
+		&--brush {
+			position: fixed;
+			top: 50%;
+			right: 1em;
+			border-radius: $base-border-radius-l;
+			background-color: white;
+			transform: translateY(-50%);
+			padding: 1em;
+			@media #{$small-only} {
+				right: 0;
+				border-radius: $base-border-radius-l 0 0 $base-border-radius-l;
+			}
+		}
 	}
 }
 .font-title {

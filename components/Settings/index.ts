@@ -1,8 +1,4 @@
-import Brush from './Brush.vue';
-import View from './View.vue';
+import BrushSettings from './BrushSettings.vue';
+import ViewSettings from './ViewSettings.vue';
 import Settings from './Settings.vue';
-export {
-	Brush as BrushSettings,
-	View as ViewSettings,
-	Settings as SettingsPanel
-};
+export { BrushSettings, ViewSettings, Settings as SettingsPanel };

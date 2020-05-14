@@ -1,6 +1,5 @@
 <template>
 	<div class="settings">
-		<BrushSettings class="settings__brush" />
 		<!-- <ViewSettings class="settings__view" /> -->
 		<div class="settings__tools">
 			<button
@@ -68,7 +67,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Brush from './Brush.vue';
 import { BrushTypes } from '@/types';
 // import View from './View.vue';
 import {
@@ -83,7 +81,6 @@ import {
 
 export default Vue.extend({
 	components: {
-		BrushSettings: Brush,
 		IconSettings,
 		IconExport,
 		IconBrush,
@@ -131,7 +128,10 @@ export default Vue.extend({
 	height: 32px;
 	background-color: currentColor;
 	opacity: 0.125;
-	margin: 1em 2em;
+	margin: 0em 2em;
+	@media #{$medium-down} {
+		margin: 0 1em;
+	}
 }
 .ui-button {
 	position: relative;
@@ -220,6 +220,7 @@ export default Vue.extend({
 	display: flex;
 	justify-content: flex-end;
 	margin: 0;
+
 	&__tools {
 		display: flex;
 		justify-content: flex-end;
