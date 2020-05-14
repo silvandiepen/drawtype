@@ -221,6 +221,10 @@ export default Vue.extend({
 			background-color: $color-dark;
 		}
 	}
+
+	&__shadow {
+		z-index: -1;
+	}
 	&--active {
 		canvas {
 			pointer-events: all;
@@ -230,45 +234,48 @@ export default Vue.extend({
 		}
 
 		.glyph-canvas__tools {
-			transform: translateX(-50%);
+			transform: translate(-50%, 0%);
 			opacity: 1;
 		}
 	}
 	&,
 	canvas,
 	&__glyph {
-		position: absolute;
-		top: 0;
-		left: 0;
 		width: 240px;
 		height: 240px;
 		border-radius: $base-border-radius-l;
-		font-size: calc(var(--view-size) / 2);
 		line-height: 240px;
-		text-align: center;
-		opacity: var(--view-opacity);
-		pointer-events: none;
 		@media #{$small-only} {
 			width: 320px;
 			height: 320px;
 			line-height: 320px;
 		}
 	}
+	&__glyph {
+		position: absolute;
+		top: 0;
+		left: 0;
+		font-size: calc(var(--view-size) / 2);
+		// line-height: 1.75;
+		text-align: center;
+		opacity: var(--view-opacity);
+		pointer-events: none;
+	}
 	&__tools {
 		position: absolute;
 		top: 100%;
 		left: 50%;
-		display: none;
+		display: flex;
 		flex-direction: row;
 		justify-content: center;
 		width: 100%;
 		height: auto;
 		color: white;
 		line-height: 1;
-		transform: translateX(0%);
+		transform: translate(-50%, 50%);
 		opacity: 0;
+		transition: transform $base-transition, opacity $base-transition;
 		padding: 0em;
-		transition: all $base-transition;
 	}
 }
 </style>
